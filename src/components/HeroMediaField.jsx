@@ -8,12 +8,15 @@ import { leftField, rightField } from '../data/media'
 // couture label softly trails the cursor while a card is hovered. Desktop only.
 const DURATION = 34
 
-// Local path coords in a 300 x 660 box that starts below the nav band. Right arc
-// bulges left (cradles the centre); left arc mirrors it. offset-anchor centres
-// each card on the path. The 8% opacity ramp at the top keeps cards from
-// appearing behind the nav.
-const RIGHT_PATH = 'M 250 30 C 66 220, 66 460, 250 640'
-const LEFT_PATH = 'M 50 30 C 234 220, 234 460, 50 640'
+// Local path coords in a 300 x 660 box that starts below the nav band. Traced
+// from KingFizzy's own drawn guide (2026-08-14): the left arc enters near the
+// top-left edge, swells to a full belly toward the centre in the upper-middle,
+// then sweeps back down to the lower-left. The right arc is its exact mirror
+// across the box (x' = 300 - x), so it bulges toward the centre from the right.
+// offset-anchor centres each card on the path; the top opacity ramp keeps cards
+// from appearing behind the nav.
+const LEFT_PATH = 'M 30 20 C 240 70, 300 200, 275 300 C 250 400, 150 520, 40 645'
+const RIGHT_PATH = 'M 270 20 C 60 70, 0 200, 25 300 C 50 400, 150 520, 260 645'
 
 export default function HeroMediaField() {
   const [label, setLabel] = useState(null)
