@@ -8,14 +8,21 @@ import { leftField, rightField } from '../data/media'
 // couture label softly trails the cursor while a card is hovered. Desktop only.
 const DURATION = 34
 
-// Local path coords in a 300 x 640 box. Right arc bulges left (cradles the
-// centre); left arc mirrors it. offset-anchor centres each card on the path.
-const RIGHT_PATH = 'M 250 24 C 60 200, 60 440, 250 616'
-const LEFT_PATH = 'M 50 24 C 240 200, 240 440, 50 616'
+// Local path coords in a 300 x 660 box that starts below the nav band. Right arc
+// bulges left (cradles the centre); left arc mirrors it. offset-anchor centres
+// each card on the path. The 8% opacity ramp at the top keeps cards from
+// appearing behind the nav.
+const RIGHT_PATH = 'M 250 30 C 66 220, 66 460, 250 640'
+const LEFT_PATH = 'M 50 30 C 234 220, 234 460, 50 640'
 
 export default function HeroMediaField() {
   const [label, setLabel] = useState(null)
   const labelRef = useRef(null)
+
+  // Six per arc (not the full eight) so the cards sit spaced along the curve
+  // rather than clumped.
+  const right = rightField.slice(0, 6)
+  const left = leftField.slice(0, 6)
 
   useEffect(() => {
     const move = (e) => {
@@ -30,13 +37,13 @@ export default function HeroMediaField() {
     <>
       <div className="pointer-events-none absolute inset-0 hidden lg:block" aria-hidden>
         <div className="arc-wrap arc-wrap--right">
-          {rightField.map((item, i) => (
-            <MediaContainer key={item.id} item={item} path={RIGHT_PATH} index={i} count={rightField.length} duration={DURATION} onEnter={setLabel} onLeave={() => setLabel(null)} />
+          {right.map((item, i) => (
+            <MediaContainer key={item.id} item={item} path={RIGHT_PATH} index={i} count={right.length} duration={DURATION} onEnter={setLabel} onLeave={() => setLabel(null)} />
           ))}
         </div>
         <div className="arc-wrap arc-wrap--left hidden xl:block">
-          {leftField.map((item, i) => (
-            <MediaContainer key={item.id} item={item} path={LEFT_PATH} index={i} count={leftField.length} duration={DURATION} onEnter={setLabel} onLeave={() => setLabel(null)} />
+          {left.map((item, i) => (
+            <MediaContainer key={item.id} item={item} path={LEFT_PATH} index={i} count={left.length} duration={DURATION} onEnter={setLabel} onLeave={() => setLabel(null)} />
           ))}
         </div>
       </div>
@@ -54,14 +61,15 @@ export default function HeroMediaField() {
       <style>{`
         .arc-wrap {
           position: absolute;
-          top: 50%;
-          height: 640px;
+          top: 132px;            /* clears the nav band so cards never sit under it */
+          height: 660px;
           width: 300px;
-          transform: translateY(-50%);
+          transform-origin: top center;
         }
-        .arc-wrap--right { right: 1.5vw; }
-        .arc-wrap--left { left: 1.5vw; }
-        @media (max-width: 1400px) { .arc-wrap { transform: translateY(-50%) scale(0.82); } }
+        .arc-wrap--right { right: 1vw; }
+        .arc-wrap--left { left: 1vw; }
+        @media (max-height: 860px) { .arc-wrap { transform: scale(0.86); } }
+        @media (max-width: 1400px) { .arc-wrap { transform: scale(0.8); } }
         .arc-card { will-change: offset-distance; }
         .arc-card-inner { will-change: transform; transition: transform 0.4s var(--ease-couture); }
         .arc-card:hover { z-index: 60; }

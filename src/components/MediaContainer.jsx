@@ -21,7 +21,7 @@ export default function MediaContainer({ item, path, index, count, duration, onE
         <div
           className="arc-card-frame overflow-hidden bg-porcelain-2"
           style={{
-            width: 'clamp(140px, 12vw, 210px)',
+            width: 'clamp(120px, 9.5vw, 172px)',
             aspectRatio: '3 / 4',
             borderRadius: '10px',
             boxShadow: '0 24px 60px -28px rgba(26,23,20,0.45), 0 2px 10px -4px rgba(26,23,20,0.2)',
