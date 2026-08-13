@@ -24,7 +24,7 @@ export default function Navbar() {
         </video>
       </div>
 
-      <nav className="mx-auto grid max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center px-5 py-5 md:px-10 md:py-7">
+      <nav className="mx-auto grid max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center px-5 py-[13px] md:px-10 md:py-[18px]">
         <div className="justify-self-start"><BrandLogo /></div>
         <div className="justify-self-center"><ShopMenu /></div>
         <div className="justify-self-end">
@@ -37,7 +37,7 @@ export default function Navbar() {
 
       <style>{`
         .nav-aurora {
-          height: 150px;
+          height: 98px;
           -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent);
           mask-image: linear-gradient(to bottom, #000 40%, transparent);
           background-color: var(--color-porcelain);
