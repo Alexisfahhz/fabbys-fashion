@@ -5,9 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
 
 @theme {
-  /* Palette. Monochrome ink on warm porcelain; claret is the single accent,
-     reserved for the live SHOP state and hover moments. The aurora supplies
-     all ambient colour, so restraint everywhere else reads as luxury. */
+  /* Palette. Monochrome ink on warm porcelain; claret is the single accent. */
   --color-porcelain: #f6f3ef;
   --color-porcelain-2: #efeae3;
   --color-bone: #ffffff;
@@ -18,30 +16,24 @@
   --color-claret: #6b3a3f;
   --color-claret-soft: rgba(107, 58, 63, 0.08);
 
-  /* Type roles */
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Jost', system-ui, sans-serif;
 
-  /* Editorial type scale */
   --text-eyebrow: 0.72rem;
-  --text-eyebrow--line-height: 1.4;
   --text-eyebrow--letter-spacing: 0.22em;
   --text-nav: 0.82rem;
   --text-nav--letter-spacing: 0.14em;
   --text-body: 1.02rem;
   --text-body--line-height: 1.7;
-  --text-menu: 2.9rem;
-  --text-menu--line-height: 1.05;
-  --text-h1: clamp(3.4rem, 8vw, 7rem);
+  --text-menu: 2.6rem;
+  --text-menu--line-height: 1.08;
+  --text-h1: clamp(3rem, 7vw, 6.2rem);
   --text-h1--line-height: 0.98;
 
-  /* Motion */
   --ease-couture: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 html {
   -webkit-font-smoothing: antialiased;
@@ -51,26 +43,38 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--color-porcelain);
+  background: var(--color-porcelain); /* plain ground; aurora lives in the nav only */
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-weight: 400;
   overflow-x: hidden;
 }
 
-/* Aurora-native cursor: hide the label until a card is hovered */
-.atelier-cursor-hidden * {
-  cursor: none;
+/* Hero entrance: a quiet staggered rise, CSS only. */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise { opacity: 0; animation: riseIn 0.9s var(--ease-couture) forwards; }
+.rise-1 { animation-delay: 0.15s; }
+.rise-2 { animation-delay: 0.27s; }
+.rise-3 { animation-delay: 0.39s; }
+.rise-4 { animation-delay: 0.51s; }
+.rise-5 { animation-delay: 0.63s; }
+
+/* Cards flow ALONG the arc (CSS motion-path): enter at the top, travel the
+   semicircle, fade out at the bottom, loop. offset-rotate:0 keeps them upright.
+   The path is set per side on the card element. All composited, no JS loop. */
+@keyframes flowDown {
+  0%   { offset-distance: 0%;   opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
+  .rise { opacity: 1; animation: none; }
+  .arc-card { animation: none !important; opacity: 1 !important; }
 }
 
 :focus-visible {
