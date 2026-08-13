@@ -49,7 +49,7 @@ export default function ShopMenu() {
         className={`shop-panel ${open ? 'is-open' : ''}`}
         aria-hidden={!open}
       >
-        <div className="px-8 pb-8 pt-[70px] md:px-10">
+        <div className="px-8 pb-8 pt-[70px] text-center md:px-10">
           <span className="mb-6 block" style={{ fontSize: 'var(--text-eyebrow)', letterSpacing: '0.22em', color: 'var(--color-taupe)' }}>THE COLLECTION</span>
           <ul className="m-0 list-none p-0">
             {categories.map((c, i) => (
@@ -66,7 +66,7 @@ export default function ShopMenu() {
             </li>
           </ul>
           <div className="mt-9 mb-5 h-px w-full" style={{ background: 'var(--color-line)' }} />
-          <div className="flex items-center gap-6">
+          <div className="flex items-center justify-center gap-6">
             <span style={{ fontSize: 'var(--text-eyebrow)', letterSpacing: '0.22em', color: 'var(--color-taupe)' }}>FOLLOW</span>
             {social.map((s) => (
               <a key={s.label} href={s.href} target={s.href.startsWith('http') ? '_blank' : undefined} rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined} onClick={s.href.startsWith('#') ? () => setOpen(false) : undefined} className="no-underline" style={{ fontSize: 'var(--text-nav)', color: 'var(--color-ink-soft)' }} tabIndex={open ? 0 : -1}>
@@ -108,13 +108,16 @@ export default function ShopMenu() {
                       border-radius 0.5s var(--ease-couture), opacity 0.3s ease, transform 0.5s var(--ease-couture);
         }
         .shop-panel.is-open {
-          width: min(520px, 92vw); max-height: 680px; opacity: 1; border-radius: 26px;
+          /* Hug the content: widest label "Ready-to-Wear" is 281px, plus the 40px
+             padding each side = 361px, so the panel wraps the text with equal
+             padding instead of leaving a wide empty right column. */
+          width: min(364px, 92vw); max-height: 680px; opacity: 1; border-radius: 26px;
           transform: translateX(-50%) scale(1); pointer-events: auto;
         }
         .menu-item { opacity: 0; transform: translateY(16px); transition: opacity 0.5s var(--ease-couture), transform 0.5s var(--ease-couture); }
         .shop-panel.is-open .menu-item { opacity: 1; transform: translateY(0); }
-        .menu-link { transition: color 0.3s var(--ease-couture), transform 0.4s var(--ease-couture); transform-origin: left; }
-        .menu-link:hover { color: var(--color-claret); transform: translateX(10px); }
+        .menu-link { transition: color 0.3s var(--ease-couture), transform 0.4s var(--ease-couture); }
+        .menu-link:hover { color: var(--color-claret); transform: scale(1.04); }
         .shop-x-bar { position: absolute; height: 1.5px; width: 16px; background: var(--color-ink); transition: transform 0.35s var(--ease-couture); }
         .shop-x-bar:nth-child(1) { transform: translateY(-3px); }
         .shop-x-bar:nth-child(2) { transform: translateY(3px); }
