@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/* Cormorant Garamond: editorial high-contrast serif (display + couture menu items).
+   Jost: geometric grotesque (all UI, body, tracked-caps eyebrows). */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
+
+@theme {
+  /* Palette. Monochrome ink on warm porcelain; claret is the single accent,
+     reserved for the live SHOP state and hover moments. The aurora supplies
+     all ambient colour, so restraint everywhere else reads as luxury. */
+  --color-porcelain: #f6f3ef;
+  --color-porcelain-2: #efeae3;
+  --color-bone: #ffffff;
+  --color-ink: #1a1714;
+  --color-ink-soft: #4a443d;
+  --color-taupe: #8b8178;
+  --color-line: #e3ddd4;
+  --color-claret: #6b3a3f;
+  --color-claret-soft: rgba(107, 58, 63, 0.08);
+
+  /* Type roles */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Jost', system-ui, sans-serif;
+
+  /* Editorial type scale */
+  --text-eyebrow: 0.72rem;
+  --text-eyebrow--line-height: 1.4;
+  --text-eyebrow--letter-spacing: 0.22em;
+  --text-nav: 0.82rem;
+  --text-nav--letter-spacing: 0.14em;
+  --text-body: 1.02rem;
+  --text-body--line-height: 1.7;
+  --text-menu: 2.9rem;
+  --text-menu--line-height: 1.05;
+  --text-h1: clamp(3.4rem, 8vw, 7rem);
+  --text-h1--line-height: 0.98;
+
+  /* Motion */
+  --ease-couture: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-porcelain);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+/* Aurora-native cursor: hide the label until a card is hovered */
+.atelier-cursor-hidden * {
+  cursor: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-claret);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
