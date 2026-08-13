@@ -15,8 +15,8 @@ const DURATION = 34
 // across the box (x' = 300 - x), so it bulges toward the centre from the right.
 // offset-anchor centres each card on the path; the top opacity ramp keeps cards
 // from appearing behind the nav.
-const LEFT_PATH = 'M 30 20 C 240 70, 300 200, 275 300 C 250 400, 150 520, 40 645'
-const RIGHT_PATH = 'M 270 20 C 60 70, 0 200, 25 300 C 50 400, 150 520, 260 645'
+const LEFT_PATH = 'M 30 20 C 265 60, 348 200, 320 305 C 288 405, 165 525, 40 645'
+const RIGHT_PATH = 'M 270 20 C 35 60, -48 200, -20 305 C 12 405, 135 525, 260 645'
 
 export default function HeroMediaField() {
   const [label, setLabel] = useState(null)
@@ -64,7 +64,7 @@ export default function HeroMediaField() {
       <style>{`
         .arc-wrap {
           position: absolute;
-          top: 132px;            /* clears the nav band so cards never sit under it */
+          top: 164px;            /* clears the nav band so cards never sit under it */
           height: 660px;
           width: 300px;
           transform-origin: top center;
