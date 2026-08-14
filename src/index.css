@@ -2,7 +2,7 @@
 
 /* Cormorant Garamond: editorial high-contrast serif (display + couture menu items).
    Jost: geometric grotesque (all UI, body, tracked-caps eyebrows). */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 
 @theme {
   /* Palette. Monochrome ink on warm porcelain; claret is the single accent. */
@@ -16,7 +16,10 @@
   --color-claret: #6b3a3f;
   --color-claret-soft: rgba(107, 58, 63, 0.08);
 
+  --radius-card: 18px; /* arc card corners; corner-shape: superellipse adds Figma-style smoothing where supported */
+
   --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-display-alt: 'Playfair Display', Georgia, serif;
   --font-sans: 'Jost', system-ui, sans-serif;
 
   --text-eyebrow: 0.72rem;
@@ -27,10 +30,18 @@
   --text-body--line-height: 1.7;
   --text-menu: 2.6rem;
   --text-menu--line-height: 1.08;
-  --text-h1: clamp(3rem, 7vw, 6.2rem);
+  --text-h1: clamp(2.35rem, 6.5vw, 6.2rem);
   --text-h1--line-height: 0.98;
 
   --ease-couture: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 * { box-sizing: border-box; }
@@ -38,16 +49,21 @@
 html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--color-porcelain); /* plain ground; aurora lives in the nav only */
+  background: var(--color-porcelain);
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-weight: 400;
-  overflow-x: hidden;
+  /* overflow-x handled per breakpoint below */
+}
+/* Desktop: prevent horizontal scroll */
+@media (min-width: 641px) {
+  body { overflow-x: hidden; }
 }
 
 /* Hero entrance: a quiet staggered rise, CSS only. */
@@ -64,12 +80,30 @@ body {
 
 /* Cards flow ALONG the arc (CSS motion-path): enter at the top, travel the
    semicircle, fade out at the bottom, loop. offset-rotate:0 keeps them upright.
-   The path is set per side on the card element. All composited, no JS loop. */
+   z-index is stepped so the card at the arc's middle is always frontmost and the
+   next card takes over as it reaches the middle (the cascade). */
 @keyframes flowDown {
-  0%   { offset-distance: 0%;   opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { offset-distance: 100%; opacity: 0; }
+  0%    { offset-distance: 0%;   opacity: 0; z-index: 1; }
+  10%   { opacity: 1; }
+  16.7% { z-index: 2; }
+  33.3% { z-index: 3; }
+  50%   { z-index: 4; }
+  66.7% { z-index: 3; }
+  83.3% { z-index: 2; }
+  90%   { opacity: 1; }
+  100%  { offset-distance: 100%; opacity: 0; z-index: 1; }
+}
+
+/* Continuous buttery-smooth entrance from top with high initial velocity & silky damping (Spacefs style) */
+@keyframes smoothDropIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -220px, 0) scale(0.84) rotate(-6deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

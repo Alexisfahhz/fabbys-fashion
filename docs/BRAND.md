@@ -5,15 +5,15 @@ Custom and ready-to-wear: bridal, occasion, lace, Ankara, statement pieces.
 
 ## Positioning / tagline (brief §16)
 
-**Primary:** Womenswear cut in Lagos, made to be remembered.
+**Primary:** From breathtaking bridal to unforgettable owambe statements — custom pieces tailored to turn heads.
 
 Alternates:
-- Custom couture and ready-to-wear, made in Lagos for the woman who arrives.
-- Made to your measure, made to be remembered.
-- Elegance, tailored to you, from Lagos to the world.
+- Made for the African woman who arrives with grace, commands the room, and leaves a statement.
+- Luxury cuts, rich lace, and bespoke fits crafted for every milestone celebration.
+- Perfect silhouettes and flawless fits tailored to celebrate your beauty.
+- Stepping out in effortless royalty, from traditional grandeur to modern couture.
 
-Rationale: leads with *cut in Lagos* (origin + craft) and *made to be remembered*
-(the statement-piece promise), avoiding the "redefining African fashion" cliche.
+Rationale: Culturally resonant African and Nigerian luxury fashion positioning that speaks directly to bridal, aso-ebi, milestone celebrations, and turning heads.
 
 ## Palette (design tokens in `src/index.css` @theme)
 
@@ -35,6 +35,8 @@ supplies all ambient colour, so restraint elsewhere reads as luxury.
 
 - **Display:** Cormorant Garamond (high-contrast editorial serif, bridal/couture).
   Used for the hero headline and the large SHOP menu items.
+- **Display (italic accent):** Playfair Display, italic. The taupe second line of
+  the hero headline — a slightly wider counterpoint to Cormorant.
 - **UI / body / eyebrows:** Jost (geometric grotesque, quietly fashion). Tracked
   caps for eyebrows and nav.
 
@@ -45,8 +47,8 @@ Scale lives in `@theme` (`--text-h1`, `--text-menu`, `--text-body`, `--text-nav`
 
 A floating **atelier field**: 8 + 8 portrait lookbook cards laid on a convex
 semicircular arc, drifting and slowly rotating over a living pearlescent aurora,
-with a spring-tethered couture label following the cursor. One bold element;
-everything else quiet.
+with each card's couture name revealed on the card itself on hover. One bold
+element; everything else quiet.
 
 ## Motion
 
@@ -58,7 +60,7 @@ loops, SHOP menu spring reveal with staggered items, cursor label spring-follow.
 ## Component architecture (brief §24)
 
 `Navbar` (`BrandLogo`, `ShopButton`, `NavigationMenu`), `Aurora`,
-`HeroText`, `HeroMediaField` (`MediaContainer`, `CursorLabel`). Content and media
+`HeroText`, `HeroMediaField` (`MediaContainer`), `HeroPillars` (3-card footer dock). Content and media
 are data-driven: `src/data/content.js`, `src/data/media.js`.
 
 ## Media (brief §12, §13, §25)

@@ -7,7 +7,7 @@ export default function BrandLogo() {
       <img
         src={`${BASE}brand/ff-mark.svg`}
         alt="Fabbys Fashion"
-        className="h-8 w-auto md:h-9"
+        className="h-12 w-auto md:h-[54px]"
         style={{ display: 'block' }}
       />
     </a>

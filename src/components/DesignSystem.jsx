@@ -16,7 +16,8 @@ const COLORS = [
 ]
 
 const TYPE = [
-  ['Display H1', 'var(--font-display)', 'var(--text-h1)', 500, 'Made to your measure.'],
+  ['Display H1', 'var(--font-display)', 'var(--text-h1)', 400, 'Made to your'],
+  ['Display H1 (italic alt)', 'var(--font-display-alt)', 'var(--text-h1)', 400, 'measure.', true],
   ['Menu (serif)', 'var(--font-display)', 'var(--text-menu)', 400, 'Occasion Wear'],
   ['Body', 'var(--font-sans)', 'var(--text-body)', 400, 'Womenswear cut in Lagos, made to be remembered.'],
   ['Nav (caps)', 'var(--font-sans)', 'var(--text-nav)', 500, 'SHOP'],
@@ -62,10 +63,10 @@ export default function DesignSystem() {
 
       <Section title="Typography">
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
-          {TYPE.map(([label, family, size, weight, sample]) => (
+          {TYPE.map(([label, family, size, weight, sample, italic]) => (
             <div key={label} style={{ borderBottom: '1px solid var(--color-line)', paddingBottom: '1.5rem' }}>
               <div style={{ fontFamily: 'var(--font-sans)', fontSize: '0.72rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-taupe)', marginBottom: '0.6rem' }}>{label}</div>
-              <div style={{ fontFamily: family, fontSize: size, fontWeight: weight, color: 'var(--color-ink)', lineHeight: 1.1, letterSpacing: label === 'Nav (caps)' || label === 'Eyebrow' ? '0.18em' : 'normal' }}>{sample}</div>
+              <div style={{ fontFamily: family, fontSize: size, fontWeight: weight, fontStyle: italic ? 'italic' : 'normal', color: italic ? 'var(--color-taupe)' : 'var(--color-ink)', lineHeight: 1.1, letterSpacing: label === 'Nav (caps)' || label === 'Eyebrow' ? '0.18em' : 'normal' }}>{sample}</div>
             </div>
           ))}
         </div>
@@ -79,13 +80,13 @@ export default function DesignSystem() {
           <a href="#shop" onClick={(e) => e.preventDefault()} style={{ display: 'inline-flex', alignItems: 'center', borderRadius: 9999, padding: '0.75rem 1.5rem', background: 'var(--color-bone)', color: 'var(--color-ink)', border: '1px solid var(--color-line)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-nav)', letterSpacing: '0.1em', textDecoration: 'none' }}>Shop the collection</a>
           {/* SHOP pill */}
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', borderRadius: 9999, padding: '0.75rem 1.75rem', background: 'var(--color-bone)', border: '1px solid var(--color-line)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-nav)', letterSpacing: '0.18em', fontWeight: 500, color: 'var(--color-ink)' }}>SHOP</span>
-          {/* Bag hint */}
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-nav)', letterSpacing: '0.12em', color: 'var(--color-ink-soft)' }}>
+          {/* Bag hint (desktop: pill) */}
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', borderRadius: 9999, border: '1px solid var(--color-line)', padding: '0.5rem 1rem', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-nav)', letterSpacing: '0.12em', color: 'var(--color-ink-soft)' }}>
             BAG <span style={{ display: 'inline-flex', height: 24, minWidth: 24, alignItems: 'center', justifyContent: 'center', borderRadius: 9999, border: '1px solid var(--color-line)', fontSize: '0.72rem', background: 'rgba(255,255,255,0.5)' }}>0</span>
           </span>
         </div>
-        {/* Media card (the atelier field tile) */}
-        <div style={{ marginTop: '1.75rem', width: 150, height: 210, borderRadius: 14, background: 'var(--color-porcelain-2)', border: '1px solid var(--color-line)', boxShadow: '0 20px 50px -30px rgba(26,23,20,0.5)', display: 'flex', alignItems: 'flex-end', padding: '0.75rem' }}>
+        {/* Media card (the atelier field tile) — traced portrait, ~4:5 at 1440 */}
+        <div style={{ marginTop: '1.75rem', width: 192, height: 239, borderRadius: 'var(--radius-card)', background: 'var(--color-porcelain-2)', border: '1px solid var(--color-line)', boxShadow: '0 24px 60px -28px rgba(26,23,20,0.45)', display: 'flex', alignItems: 'flex-end', padding: '0.75rem' }}>
           <span style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: '1rem', color: 'var(--color-ink-soft)' }}>Media tile</span>
         </div>
       </Section>
@@ -103,7 +104,7 @@ export default function DesignSystem() {
         <ol style={{ margin: 0, paddingLeft: '1.2rem', display: 'flex', flexDirection: 'column', gap: '0.6rem', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-body)', color: 'var(--color-ink-soft)', lineHeight: 1.6 }}>
           <li>New colour, type size, or easing: add it to the <code>@theme</code> block in <code>src/index.css</code>. Never hardcode a hex or px that a token could hold.</li>
           <li>New component: build it from the tokens above, then drop a real instance into the Components section here so this page always mirrors the live site.</li>
-          <li>Keep the rule of restraint: monochrome ink on porcelain, claret as the only accent, one display serif (Cormorant) and one UI sans (Jost).</li>
+          <li>Keep the rule of restraint: monochrome ink on porcelain, claret as the only accent, two display serifs (Cormorant + the Playfair italic accent line) and one UI sans (Jost).</li>
         </ol>
       </Section>
     </div>

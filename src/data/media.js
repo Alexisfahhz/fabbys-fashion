@@ -28,11 +28,15 @@ const assets = [
 
 const video = { type: 'video', src: img('lookbook.mp4'), poster: img('lookbook-poster.jpg') }
 
+// The bride reel, placed on the upper-left arc (visible xl+). Same shape as the
+// lookbook clip: transcoded web-safe H.264 + poster.
+const brideVideo = { type: 'video', src: img('bride-video.mp4'), poster: img('bride-poster.jpg') }
+
 // Couture placeholder names, one per container (section 10 of the brief).
 const names = [
   'The Slanting Elegance', 'Midnight Lace', 'The Lagos Muse', 'Azure Statement',
   'Ankara Reverie', 'Ivory Occasion', 'The Sculpted Gown', 'Golden Hour',
-  'The Marina Gown', 'Coral Ceremony', 'The Yaba Muse', 'Obsidian Drape',
+  'The Marina Gown', 'The Bride', 'The Yaba Muse', 'Obsidian Drape',
   'Harmattan Silk', 'The Island Bride', 'Terra Reverie', 'The Lagerre Cut',
 ]
 
@@ -60,6 +64,9 @@ export const mediaField = layout.map((l, i) => {
 // One prominent upper-right card plays the lookbook clip (kept to a single video
 // for performance).
 mediaField[2] = { ...mediaField[2], ...video }
+
+// The bride reel rides a prominent upper-left card.
+mediaField[9] = { ...mediaField[9], ...brideVideo }
 
 export const leftField = mediaField.filter((m) => m.side === 'left')
 export const rightField = mediaField.filter((m) => m.side === 'right')
