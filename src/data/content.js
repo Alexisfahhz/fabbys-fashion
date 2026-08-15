@@ -2,7 +2,7 @@
 // and social can change without touching component code (sections 15, 16, 24).
 
 // Primary positioning (section 16). Relatable African & Nigerian luxury fashion.
-export const tagline = 'From breathtaking bridal to unforgettable owambe statements — custom pieces tailored to turn heads.'
+export const tagline = 'From breathtaking bridal to unforgettable owambe statements. Custom pieces tailored to turn heads.'
 
 // Hero headline, two-tone (ink first line, taupe second). Communicates the
 // custom-craft promise without a fashion cliche.

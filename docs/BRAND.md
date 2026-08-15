@@ -5,7 +5,7 @@ Custom and ready-to-wear: bridal, occasion, lace, Ankara, statement pieces.
 
 ## Positioning / tagline (brief §16)
 
-**Primary:** From breathtaking bridal to unforgettable owambe statements — custom pieces tailored to turn heads.
+**Primary:** From breathtaking bridal to unforgettable owambe statements. Custom pieces tailored to turn heads.
 
 Alternates:
 - Made for the African woman who arrives with grace, commands the room, and leaves a statement.
