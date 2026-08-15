@@ -142,8 +142,9 @@ export default function ShopMenu() {
         .menu-link { transition: color 0.3s var(--ease-couture), transform 0.4s var(--ease-couture); }
         .menu-link:hover { color: var(--color-claret); transform: scale(1.04); }
         .shop-x-bar { position: absolute; height: 1.5px; width: 16px; background: var(--color-ink); transition: transform 0.35s var(--ease-couture); }
-        .shop-x-bar:nth-child(1) { transform: translateY(-3px); }
-        .shop-x-bar:nth-child(2) { transform: translateY(3px); }
+        /* bars span the same footprint as the bag icon glyph (16px box) */
+        .shop-x-bar:nth-child(1) { transform: translateY(-6px); }
+        .shop-x-bar:nth-child(2) { transform: translateY(6px); }
         .shop-x.is-open .shop-x-bar:nth-child(1) { transform: rotate(45deg); }
         .shop-x.is-open .shop-x-bar:nth-child(2) { transform: rotate(-45deg); }
         .shop-label { font-size: var(--text-nav); letter-spacing: 0.18em; }
@@ -151,8 +152,8 @@ export default function ShopMenu() {
         @media (max-width: 640px) {
           .shop-label { font-size: 1.2rem; letter-spacing: 0.15em; }
           .shop-x-bar { height: 2px; width: 24px; }
-          .shop-x-bar:nth-child(1) { transform: translateY(-4px); }
-          .shop-x-bar:nth-child(2) { transform: translateY(4px); }
+          .shop-x-bar:nth-child(1) { transform: translateY(-9px); }
+          .shop-x-bar:nth-child(2) { transform: translateY(9px); }
         }
       `}</style>
     </div>
