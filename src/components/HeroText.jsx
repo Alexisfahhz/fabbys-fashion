@@ -76,11 +76,11 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
       <div className="rise rise-5 flex flex-col items-stretch gap-3 w-full">
         <a 
           href="#shop" 
-          className="cta-fill w-full inline-flex items-center justify-center rounded-full py-4 px-6 font-medium no-underline text-center" 
+          className="cta-fill w-full inline-flex items-center justify-center rounded-full py-[19.2px] px-6 font-medium no-underline text-center" 
           style={{ 
             background: 'var(--color-ink)', 
             color: 'var(--color-porcelain)', 
-            fontSize: '0.94rem', 
+            fontSize: '1.128rem', 
             letterSpacing: '0.08em' 
           }}
         >
@@ -88,11 +88,11 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
         </a>
         <a 
           href="#fitting" 
-          className="cta-outline w-full inline-flex items-center justify-center rounded-full py-4 px-6 font-medium no-underline text-center" 
+          className="cta-outline w-full inline-flex items-center justify-center rounded-full py-[19.2px] px-6 font-medium no-underline text-center" 
           style={{ 
             border: '1.5px solid var(--color-line)', 
             color: 'var(--color-ink)', 
-            fontSize: '0.94rem', 
+            fontSize: '1.128rem', 
             letterSpacing: '0.08em', 
             background: 'var(--color-bone)' 
           }}
