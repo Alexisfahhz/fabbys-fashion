@@ -82,7 +82,7 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
             color: 'var(--color-porcelain)', 
             fontSize: '1.128rem', 
             letterSpacing: '0.08em',
-            height: 48,
+            height: 52,
           }}
         >
           Shop the collection
@@ -96,7 +96,7 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
             fontSize: '1.128rem', 
             letterSpacing: '0.08em', 
             background: 'var(--color-bone)',
-            height: 48,
+            height: 52,
           }}
         >
           Book a fitting
