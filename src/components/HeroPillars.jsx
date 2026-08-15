@@ -15,7 +15,7 @@ export default function HeroPillars({ isMobileSection = false }) {
             className="font-medium tracking-[0.2em] text-taupe uppercase mb-1"
             style={{ fontFamily: 'var(--font-sans)', fontSize: '0.68rem', color: 'var(--color-taupe)' }}
           >
-            ATELIER EXPERTISE
+            OUR EXPERTISE
           </p>
           <h2 
             className="m-0 text-2xl font-normal"
