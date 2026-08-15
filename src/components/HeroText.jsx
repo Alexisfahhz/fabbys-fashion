@@ -80,7 +80,7 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
           style={{ 
             background: 'var(--color-ink)', 
             color: 'var(--color-porcelain)', 
-            fontSize: '1.128rem', 
+            fontSize: '12px', 
             letterSpacing: '0.08em',
             height: 52,
           }}
@@ -93,7 +93,7 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
           style={{ 
             border: '1.5px solid var(--color-line)', 
             color: 'var(--color-ink)', 
-            fontSize: '1.128rem', 
+            fontSize: '12px', 
             letterSpacing: '0.08em', 
             background: 'var(--color-bone)',
             height: 52,
