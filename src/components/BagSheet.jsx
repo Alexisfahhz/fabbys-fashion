@@ -180,6 +180,7 @@ export default function BagSheet() {
         .bag-sheet {
           position: fixed;
           top: 0; right: 0; bottom: 0;
+          z-index: 80;
           width: min(420px, 70vw);
           background: var(--color-bone);
           border-left: 1px solid var(--color-line);
