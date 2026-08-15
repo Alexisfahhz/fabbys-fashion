@@ -114,6 +114,7 @@ export default function HeroMediaField() {
           position: absolute;
           left: 0; right: 0; bottom: 0;
           padding: 2.5rem 0.9rem 0.7rem;
+          border-radius: 0 0 var(--radius-card) var(--radius-card);
           background: linear-gradient(to top, rgba(26,23,20,0.72) 0%, rgba(26,23,20,0.3) 45%, rgba(26,23,20,0) 75%);
           opacity: 0;
           transform: translateY(6px);
