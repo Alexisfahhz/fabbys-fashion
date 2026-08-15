@@ -52,16 +52,38 @@ element; everything else quiet.
 
 ## Motion
 
-Framer Motion, chosen over GSAP because the motion is spring/gesture-driven, not
-scroll-scrubbed. Spring entrances (cards arc in from their edge), ambient float
-loops, SHOP menu spring reveal with staggered items, cursor label spring-follow.
-`prefers-reduced-motion` parks all of it (global rule in `index.css`).
+Pure CSS throughout (Framer Motion was removed for performance, KingFizzy's
+call). One easing for every transition: `--ease-couture`
+(`cubic-bezier(0.22, 1, 0.36, 1)`). Staggered `riseIn` entrances (opacity +
+26px lift, delays 0.15s to 0.63s), the atelier field rides CSS
+`offset-path` down each side arc, the SHOP/BAG pills morph in place
+(transparent shell + icon-to-X crossfade), and the bag drawer slides in
+from the right (`0.55s`). `prefers-reduced-motion` parks all of it (global
+rule in `index.css`).
 
 ## Component architecture (brief §24)
 
 `Navbar` (`BrandLogo`, `ShopButton`, `NavigationMenu`), `Aurora`,
-`HeroText`, `HeroMediaField` (`MediaContainer`), `HeroPillars` (3-card footer dock). Content and media
+`HeroText`, `HeroMediaField` (`MediaContainer`), `HeroPillars` (3-card footer dock), `BagSheet` (slide-in
+cart drawer), `BagProvider` (bag state in `src/lib/bag.jsx`). Content and media
 are data-driven: `src/data/content.js`, `src/data/media.js`.
+
+## Buttons (component spec)
+
+Two CTA variants and two nav pills. Tokenized in `@theme`
+(`--height-cta`, `--height-cta-mobile`, `--text-cta`, `--text-cta-mobile`);
+the nav pills use `h-14 md:h-11`. Which to use where:
+
+| Control | Desktop (md+) | Mobile (<md) |
+|---|---|---|
+| CTA fill ("Shop the collection") | 60px, 0.95rem, px 36, inline | 52px, 12px, full-width |
+| CTA outline ("Book a fitting") | 60px, 0.95rem, px 36, inline | 52px, 12px, full-width |
+| Nav pill (SHOP / BAG) | 44px (md:h-11) | 56px (h-14) |
+
+Use the fill CTA for the primary action (the ink pill), the outline CTA for
+the secondary action on the same surface. Never swap them on the hero: fill =
+"Shop the collection", outline = "Book a fitting". Live reference: the
+Buttons section of the design system page (`/#design-system`).
 
 ## Media (brief §12, §13, §25)
 

@@ -33,6 +33,13 @@
   --text-h1: clamp(2.35rem, 6.5vw, 6.2rem);
   --text-h1--line-height: 0.98;
 
+  /* CTA buttons: desktop vs mobile heights + type. Mobile is denser (52px,
+     12px text) and full-width; desktop is 60px with 0.95rem text. */
+  --height-cta: 60px;
+  --height-cta-mobile: 52px;
+  --text-cta: 0.95rem;
+  --text-cta-mobile: 12px;
+
   --ease-couture: cubic-bezier(0.22, 1, 0.36, 1);
 }
 

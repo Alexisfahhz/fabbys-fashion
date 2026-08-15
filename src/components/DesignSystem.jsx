@@ -72,17 +72,61 @@ export default function DesignSystem() {
         </div>
       </Section>
 
+      <Section title="Buttons">
+        <p style={{ fontFamily: 'var(--font-sans)', fontSize: 'var(--text-body)', color: 'var(--color-ink-soft)', margin: '0 0 1.5rem', lineHeight: 1.6 }}>
+          Two CTAs (fill + outline) and two nav pills (SHOP, BAG). Heights and type come from the
+          CTA tokens in <code>@theme</code>; the nav pills use <code>h-14 md:h-11</code> (56px mobile,
+          44px desktop). On mobile the CTAs go full-width and drop to the smaller type.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.25rem' }}>
+          <div style={{ border: '1px solid var(--color-line)', borderRadius: 12, padding: '1.25rem', background: 'var(--color-bone)' }}>
+            <div style={{ fontFamily: 'var(--font-sans)', fontSize: '0.72rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-taupe)', marginBottom: '0.75rem' }}>Desktop spec</div>
+            <a href="#shop" onClick={(e) => e.preventDefault()} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 9999, padding: '0 2.25rem', background: 'var(--color-ink)', color: 'var(--color-porcelain)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-cta)', letterSpacing: '0.1em', height: 'var(--height-cta)', textDecoration: 'none' }}>Shop the collection</a>
+            <a href="#fitting" onClick={(e) => e.preventDefault()} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 9999, padding: '0 2.25rem', marginTop: '0.75rem', background: 'var(--color-bone)', color: 'var(--color-ink)', border: '1px solid var(--color-line)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-cta)', letterSpacing: '0.1em', height: 'var(--height-cta)', textDecoration: 'none' }}>Book a fitting</a>
+          </div>
+          <div style={{ border: '1px solid var(--color-line)', borderRadius: 12, padding: '1.25rem', background: 'var(--color-bone)' }}>
+            <div style={{ fontFamily: 'var(--font-sans)', fontSize: '0.72rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-taupe)', marginBottom: '0.75rem' }}>Mobile spec</div>
+            <a href="#shop" onClick={(e) => e.preventDefault()} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 9999, padding: '0 1.5rem', width: '100%', background: 'var(--color-ink)', color: 'var(--color-porcelain)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-cta-mobile)', letterSpacing: '0.08em', height: 'var(--height-cta-mobile)', textDecoration: 'none' }}>Shop the collection</a>
+            <a href="#fitting" onClick={(e) => e.preventDefault()} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 9999, padding: '0 1.5rem', width: '100%', marginTop: '0.75rem', background: 'var(--color-bone)', color: 'var(--color-ink)', border: '1.5px solid var(--color-line)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-cta-mobile)', letterSpacing: '0.08em', height: 'var(--height-cta-mobile)', textDecoration: 'none' }}>Book a fitting</a>
+          </div>
+        </div>
+        <div style={{ marginTop: '1.25rem', overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-sans)', fontSize: '0.85rem' }}>
+            <thead>
+              <tr style={{ color: 'var(--color-taupe)', textAlign: 'left' }}>
+                <th style={{ padding: '0.5rem 0.75rem', borderBottom: '1px solid var(--color-line)', fontWeight: 500 }}>Control</th>
+                <th style={{ padding: '0.5rem 0.75rem', borderBottom: '1px solid var(--color-line)', fontWeight: 500 }}>Desktop</th>
+                <th style={{ padding: '0.5rem 0.75rem', borderBottom: '1px solid var(--color-line)', fontWeight: 500 }}>Mobile</th>
+              </tr>
+            </thead>
+            <tbody style={{ color: 'var(--color-ink-soft)' }}>
+              <tr>
+                <td style={{ padding: '0.5rem 0.75rem', borderBottom: '1px solid var(--color-line)', color: 'var(--color-ink)' }}>CTA fill / outline</td>
+                <td style={{ padding: '0.5rem 0.75rem', borderBottom: '1px solid var(--color-line)' }}>60px · 0.95rem · px 36 · inline</td>
+                <td style={{ padding: '0.5rem 0.75rem', borderBottom: '1px solid var(--color-line)' }}>52px · 12px · full-width</td>
+              </tr>
+              <tr>
+                <td style={{ padding: '0.5rem 0.75rem', borderBottom: '1px solid var(--color-line)', color: 'var(--color-ink)' }}>Nav pill (SHOP / BAG)</td>
+                <td style={{ padding: '0.5rem 0.75rem', borderBottom: '1px solid var(--color-line)' }}>44px (md:h-11)</td>
+                <td style={{ padding: '0.5rem 0.75rem', borderBottom: '1px solid var(--color-line)' }}>56px (h-14)</td>
+              </tr>
+              <tr>
+                <td style={{ padding: '0.5rem 0.75rem', color: 'var(--color-ink)' }}>Card caption / media tile</td>
+                <td style={{ padding: '0.5rem 0.75rem' }}>18px radius (--radius-card)</td>
+                <td style={{ padding: '0.5rem 0.75rem' }}>18px radius (--radius-card)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </Section>
+
       <Section title="Components">
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.25rem', alignItems: 'center' }}>
-          {/* Primary CTA */}
-          <a href="#book" onClick={(e) => e.preventDefault()} style={{ display: 'inline-flex', alignItems: 'center', borderRadius: 9999, padding: '0.75rem 1.5rem', background: 'var(--color-ink)', color: 'var(--color-porcelain)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-nav)', letterSpacing: '0.1em', textDecoration: 'none' }}>Book a fitting</a>
-          {/* Secondary / outline */}
-          <a href="#shop" onClick={(e) => e.preventDefault()} style={{ display: 'inline-flex', alignItems: 'center', borderRadius: 9999, padding: '0.75rem 1.5rem', background: 'var(--color-bone)', color: 'var(--color-ink)', border: '1px solid var(--color-line)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-nav)', letterSpacing: '0.1em', textDecoration: 'none' }}>Shop the collection</a>
           {/* SHOP pill */}
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', borderRadius: 9999, padding: '0.75rem 1.75rem', background: 'var(--color-bone)', border: '1px solid var(--color-line)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-nav)', letterSpacing: '0.18em', fontWeight: 500, color: 'var(--color-ink)' }}>SHOP</span>
-          {/* Bag hint (desktop: pill) */}
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', borderRadius: 9999, border: '1px solid var(--color-line)', padding: '0.5rem 1rem', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-nav)', letterSpacing: '0.12em', color: 'var(--color-ink-soft)' }}>
-            BAG <span style={{ display: 'inline-flex', height: 24, minWidth: 24, alignItems: 'center', justifyContent: 'center', borderRadius: 9999, border: '1px solid var(--color-line)', fontSize: '0.72rem', background: 'rgba(255,255,255,0.5)' }}>0</span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', borderRadius: 9999, padding: '0 1.75rem', height: 44, background: 'var(--color-bone)', border: '1px solid var(--color-line)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-nav)', letterSpacing: '0.18em', fontWeight: 500, color: 'var(--color-ink)' }}>SHOP</span>
+          {/* Bag pill (desktop) */}
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', borderRadius: 9999, border: '1px solid var(--color-line)', padding: '0 1rem', height: 44, fontFamily: 'var(--font-sans)', fontSize: 'var(--text-nav)', letterSpacing: '0.12em', color: 'var(--color-ink)' }}>
+            BAG <span style={{ display: 'inline-flex', height: 20, minWidth: 20, alignItems: 'center', justifyContent: 'center', borderRadius: 9999, background: 'rgba(26,23,20,0.08)', fontSize: '0.72rem', color: 'var(--color-ink-soft)' }}>0</span>
           </span>
         </div>
         {/* Media card (the atelier field tile) — traced portrait, ~4:5 at 1440 */}

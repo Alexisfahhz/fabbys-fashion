@@ -21,14 +21,14 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
         <a 
           href="#shop" 
           className="cta-fill inline-flex items-center rounded-full px-[36px] no-underline" 
-          style={{ background: 'var(--color-ink)', color: 'var(--color-porcelain)', fontSize: '0.95rem', letterSpacing: '0.1em', height: 60 }}
+          style={{ background: 'var(--color-ink)', color: 'var(--color-porcelain)', fontSize: 'var(--text-cta)', letterSpacing: '0.1em', height: 'var(--height-cta)' }}
         >
           Shop the collection
         </a>
         <a 
           href="#fitting" 
           className="cta-outline inline-flex items-center rounded-full px-[36px] no-underline" 
-          style={{ border: '1px solid var(--color-line)', color: 'var(--color-ink)', fontSize: '0.95rem', letterSpacing: '0.1em', background: 'var(--color-bone)', height: 60 }}
+          style={{ border: '1px solid var(--color-line)', color: 'var(--color-ink)', fontSize: 'var(--text-cta)', letterSpacing: '0.1em', background: 'var(--color-bone)', height: 'var(--height-cta)' }}
         >
           Book a fitting
         </a>
@@ -80,9 +80,9 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
           style={{ 
             background: 'var(--color-ink)', 
             color: 'var(--color-porcelain)', 
-            fontSize: '12px', 
+            fontSize: 'var(--text-cta-mobile)', 
             letterSpacing: '0.08em',
-            height: 52,
+            height: 'var(--height-cta-mobile)',
           }}
         >
           Shop the collection
@@ -93,10 +93,10 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
           style={{ 
             border: '1.5px solid var(--color-line)', 
             color: 'var(--color-ink)', 
-            fontSize: '12px', 
+            fontSize: 'var(--text-cta-mobile)', 
             letterSpacing: '0.08em', 
             background: 'var(--color-bone)',
-            height: 52,
+            height: 'var(--height-cta-mobile)',
           }}
         >
           Book a fitting
