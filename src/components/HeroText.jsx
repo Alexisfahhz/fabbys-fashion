@@ -38,12 +38,12 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
 
   // MOBILE VIEW (< md): Dual arcs top half, text block in lower half, CTAs at bottom
   const renderMobile = (
-    <div className={`${isMobileOnly ? 'flex' : 'flex md:hidden'} relative z-20 flex-col w-full pt-[170px] pb-4`}>
+    <div className={`${isMobileOnly ? 'flex' : 'flex md:hidden'} relative z-20 flex-col w-full pt-[350px] pb-4`}>
 
       {/* Text block — sits directly above the CTAs, in the lower viewport */}
       <div className="w-full text-center px-2 mb-5">
         <p 
-          className="rise rise-1 mb-1 font-medium leading-relaxed" 
+          className="rise rise-1 mb-1 font-medium leading-snug" 
           style={{ 
             fontFamily: 'var(--font-sans)',
             fontSize: '0.68rem', 
@@ -73,7 +73,7 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
       </div>
 
       {/* Full-Width CTAs — tight gap below text, drops both together to bottom of viewport */}
-      <div className="rise rise-5 flex flex-col items-stretch gap-3 w-full">
+      <div className="rise rise-5 flex flex-col items-stretch gap-4 w-full">
         <a 
           href="#shop" 
           className="cta-fill w-full inline-flex items-center justify-center rounded-full px-6 font-medium no-underline text-center" 
@@ -110,9 +110,13 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
       {renderDesktop}
       {renderMobile}
       <style>{`
-        .cta-fill, .cta-outline { transition: transform 0.4s var(--ease-couture), background 0.4s var(--ease-couture), border-color 0.4s var(--ease-couture); }
+        .cta-fill, .cta-outline { transition: transform 0.4s var(--ease-couture), background 0.4s var(--ease-couture), border-color 0.4s var(--ease-couture), opacity 0.2s ease; }
         .cta-fill:hover { background: var(--color-claret); transform: translateY(-2px); }
         .cta-outline:hover { border-color: var(--color-ink); transform: translateY(-2px); }
+        @media (max-width: 767px) {
+          .cta-fill:active { transform: scale(0.96); opacity: 0.9; }
+          .cta-outline:active { transform: scale(0.96); opacity: 0.9; }
+        }
       `}</style>
     </>
   )
