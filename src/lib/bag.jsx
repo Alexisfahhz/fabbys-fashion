@@ -1,34 +1,43 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react'
-
-// Minimal bag store: no cart backend exists yet (scope: nav + hero), so the
-// provider holds the UI state and a data-driven items list. addItem/setQty/
-// removeItem are the contract product pages will call once they exist.
-const BagContext = createContext(null)
+import { useCallback, useMemo, useState } from 'react'
+import { CURRENCIES, formatPrice as formatCurrencyPrice } from './currency'
+import { BagContext } from './bagContext'
 
 export function BagProvider({ children }) {
   const [items, setItems] = useState([])
   const [open, setOpen] = useState(false)
+  const [currency, setCurrency] = useState('NGN')
+  const [quickViewProduct, setQuickViewProduct] = useState(null)
+  const [toastMessage, setToastMessage] = useState(null)
 
-  const addItem = useCallback((item) => {
-    setItems((prev) => {
-      const existing = prev.find((i) => i.id === item.id)
-      if (existing) {
-        return prev.map((i) => (i.id === item.id ? { ...i, qty: i.qty + 1 } : i))
-      }
-      return [...prev, { qty: 1, ...item }]
-    })
+  const showToast = useCallback((msg) => {
+    setToastMessage(msg)
+    setTimeout(() => {
+      setToastMessage((current) => (current === msg ? null : current))
+    }, 3200)
   }, [])
 
-  const setQty = useCallback((id, qty) => {
+  const addItem = useCallback((item, selectedSize = 'UK 10') => {
+    setItems((prev) => {
+      const itemKey = `${item.id}-${selectedSize}`
+      const existing = prev.find((i) => i.itemKey === itemKey)
+      if (existing) {
+        return prev.map((i) => (i.itemKey === itemKey ? { ...i, qty: i.qty + 1 } : i))
+      }
+      return [...prev, { qty: 1, itemKey, size: selectedSize, ...item }]
+    })
+    showToast(`Added "${item.title}" (${selectedSize}) to Bag`)
+  }, [showToast])
+
+  const setQty = useCallback((itemKey, qty) => {
     setItems((prev) =>
       qty <= 0
-        ? prev.filter((i) => i.id !== id)
-        : prev.map((i) => (i.id === id ? { ...i, qty } : i))
+        ? prev.filter((i) => (i.itemKey || i.id) !== itemKey)
+        : prev.map((i) => ((i.itemKey || i.id) === itemKey ? { ...i, qty } : i))
     )
   }, [])
 
-  const removeItem = useCallback((id) => {
-    setItems((prev) => prev.filter((i) => i.id !== id))
+  const removeItem = useCallback((itemKey) => {
+    setItems((prev) => prev.filter((i) => (i.itemKey || i.id) !== itemKey))
   }, [])
 
   const openBag = useCallback(() => setOpen(true), [])
@@ -40,24 +49,84 @@ export function BagProvider({ children }) {
     [items]
   )
 
-  const value = useMemo(
-    () => ({ items, count, subtotal, open, addItem, setQty, removeItem, openBag, closeBag }),
-    [items, count, subtotal, open, addItem, setQty, removeItem, openBag, closeBag]
+  const formatPrice = useCallback(
+    (amountInNGN) => formatCurrencyPrice(amountInNGN, currency),
+    [currency]
   )
 
-  return <BagContext.Provider value={value}>{children}</BagContext.Provider>
-}
+  // Generates prefilled WhatsApp link for direct ordering
+  const getWhatsAppOrderUrl = useCallback(() => {
+    const phone = '2348000000000'
+    if (items.length === 0) {
+      return `https://wa.me/${phone}?text=${encodeURIComponent('Hello Fabbys Fashion, I would like to inquire about placing a custom order.')}`
+    }
+    const lines = items.map(
+      (item, idx) =>
+        `${idx + 1}. *${item.title}* (Size: ${item.size || 'M'}) × ${item.qty} — ${formatPrice(item.price * item.qty)}`
+    )
+    const text = `Hello Fabbys Fashion! I'd like to place an order for the following items:\n\n${lines.join('\n')}\n\n*Total:* ${formatPrice(subtotal)} (${currency})\n\nPlease advise on production lead time and payment details.`
+    return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`
+  }, [items, subtotal, currency, formatPrice])
 
-export function useBag() {
-  const ctx = useContext(BagContext)
-  if (!ctx) throw new Error('useBag must be used inside BagProvider')
-  return ctx
-}
+  const value = useMemo(
+    () => ({
+      items,
+      count,
+      subtotal,
+      open,
+      currency,
+      setCurrency,
+      currencies: CURRENCIES,
+      quickViewProduct,
+      setQuickViewProduct,
+      toastMessage,
+      addItem,
+      setQty,
+      removeItem,
+      openBag,
+      closeBag,
+      formatPrice,
+      getWhatsAppOrderUrl,
+    }),
+    [
+      items,
+      count,
+      subtotal,
+      open,
+      currency,
+      quickViewProduct,
+      toastMessage,
+      addItem,
+      setQty,
+      removeItem,
+      openBag,
+      closeBag,
+      formatPrice,
+      getWhatsAppOrderUrl,
+    ]
+  )
 
-export function formatPrice(n) {
-  return new Intl.NumberFormat('en-NG', {
-    style: 'currency',
-    currency: 'NGN',
-    maximumFractionDigits: 0,
-  }).format(n)
+  return (
+    <BagContext.Provider value={value}>
+      {children}
+      {/* Toast Notification */}
+      {toastMessage && (
+        <aside
+          aria-live="polite"
+          className="fixed bottom-6 right-6 z-90 flex items-center gap-3 rounded-2xl bg-ink px-5 py-3.5 text-porcelain shadow-2xl transition-all duration-300 animate-in fade-in slide-in-from-bottom-3"
+          style={{ fontFamily: 'var(--font-sans)', fontSize: '0.86rem', border: '1px solid rgba(255,255,255,0.1)' }}
+        >
+          <span className="flex h-2 w-2 rounded-full bg-claret animate-pulse" />
+          <span>{toastMessage}</span>
+          <button
+            type="button"
+            onClick={() => setToastMessage(null)}
+            className="ml-2 text-xs opacity-70 hover:opacity-100"
+          >
+            ✕
+          </button>
+        </aside>
+      )}
+    </BagContext.Provider>
+  )
 }

@@ -73,16 +73,16 @@ export default function HeroMediaField() {
            edge). Cards fade via the flowDown keyframes instead. */
         @media (max-width: 640px) {
           .arc-wrap--left {
-            top: 130px;
-            left: 23px;
-            transform: scale(0.36);
+            top: 76px;
+            left: 16px;
+            transform: scale(0.33);
             transform-origin: top left;
             opacity: 0.95;
           }
           .arc-wrap--right {
-            top: 130px;
-            right: 23px;
-            transform: scale(0.36);
+            top: 76px;
+            right: 16px;
+            transform: scale(0.33);
             transform-origin: top right;
             opacity: 0.95;
           }

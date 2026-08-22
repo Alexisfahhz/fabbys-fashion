@@ -26,13 +26,13 @@ export default function HeroPillars({ isMobileSection = false }) {
         </div>
       )}
 
-      {/* 3 Pillars: Stacked cleanly on mobile section, 3-column grid on desktop */}
-      <div className={`grid gap-4 sm:gap-5 ${isMobileSection ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-3'}`}>
+      {/* 4 Pillars: Stacked cleanly on mobile section, 4-column grid on desktop */}
+      <div className={`grid gap-3 sm:gap-4 ${isMobileSection ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-4'}`}>
         {heroPillars.map((pillar, idx) => (
           <a
             key={pillar.number}
             href={pillar.href}
-            className={`pillar-card pillar-card-${idx + 1} group relative block overflow-hidden rounded-xl p-5 sm:p-6 text-left no-underline transition-all duration-300`}
+            className={`pillar-card pillar-card-${idx + 1} group relative block overflow-hidden rounded-xl p-4 sm:p-5 text-left no-underline transition-all duration-300`}
             style={{
               background: 'rgba(255, 255, 255, 0.85)',
               backdropFilter: 'blur(12px)',
@@ -47,7 +47,7 @@ export default function HeroPillars({ isMobileSection = false }) {
                 className="font-medium" 
                 style={{ 
                   fontFamily: 'var(--font-sans)', 
-                  fontSize: '0.68rem', 
+                  fontSize: '0.54rem', 
                   letterSpacing: '0.18em', 
                   color: 'var(--color-taupe)' 
                 }}
@@ -67,7 +67,7 @@ export default function HeroPillars({ isMobileSection = false }) {
               className="m-0 mb-1.5 sm:mb-2 transition-colors duration-300 group-hover:text-claret" 
               style={{ 
                 fontFamily: 'var(--font-display)', 
-                fontSize: '1.38rem', 
+                fontSize: '1.1rem', 
                 lineHeight: 1.15, 
                 fontWeight: 500,
                 color: 'var(--color-ink)' 
@@ -81,7 +81,7 @@ export default function HeroPillars({ isMobileSection = false }) {
               className="m-0 mb-3.5 sm:mb-4" 
               style={{ 
                 fontFamily: 'var(--font-sans)', 
-                fontSize: '0.86rem', 
+                fontSize: '0.69rem', 
                 lineHeight: 1.6, 
                 color: 'var(--color-ink-soft)' 
               }}
@@ -94,7 +94,7 @@ export default function HeroPillars({ isMobileSection = false }) {
               className="inline-flex items-center gap-1.5 font-medium transition-all duration-300"
               style={{ 
                 fontFamily: 'var(--font-sans)', 
-                fontSize: '0.76rem', 
+                fontSize: '0.61rem', 
                 letterSpacing: '0.12em', 
                 color: 'var(--color-ink)' 
               }}
@@ -123,6 +123,7 @@ export default function HeroPillars({ isMobileSection = false }) {
         .pillar-card-1 { animation: rise 0.8s var(--ease-couture) 0.5s backwards; }
         .pillar-card-2 { animation: rise 0.8s var(--ease-couture) 0.6s backwards; }
         .pillar-card-3 { animation: rise 0.8s var(--ease-couture) 0.7s backwards; }
+        .pillar-card-4 { animation: rise 0.8s var(--ease-couture) 0.8s backwards; }
       `}</style>
     </div>
   )

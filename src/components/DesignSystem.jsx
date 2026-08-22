@@ -4,6 +4,8 @@
 // component here. Reachable at /#design-system. Section 5c pattern (same as the
 // LinqLabs app's /design-system): one CSS-variable source, one living page.
 
+import CurrencySelector from './CurrencySelector'
+
 const COLORS = [
   ['--color-porcelain', 'Porcelain', 'Page ground, the brand surface tone'],
   ['--color-porcelain-2', 'Porcelain 2', 'Recessed surface, subtle depth'],
@@ -37,6 +39,10 @@ export default function DesignSystem() {
   return (
     <div style={{ maxWidth: 980, margin: '0 auto', padding: '5rem 1.5rem 6rem' }}>
       <header style={{ marginBottom: '4rem' }}>
+        <a href="#top" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', color: 'var(--color-claret)', fontSize: '0.8rem', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '1.5rem', fontWeight: 500 }}>
+          ← Return to Atelier Site
+        </a>
+        <br />
         <span style={{ fontFamily: 'var(--font-sans)', fontSize: 'var(--text-eyebrow)', letterSpacing: '0.22em', color: 'var(--color-taupe)' }}>FABBYS FASHION</span>
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 500, lineHeight: 1.02, color: 'var(--color-ink)', margin: '0.5rem 0 0.75rem' }}>Design System</h1>
         <p style={{ fontFamily: 'var(--font-sans)', fontSize: 'var(--text-body)', color: 'var(--color-ink-soft)', maxWidth: 560, lineHeight: 1.6 }}>
@@ -72,9 +78,9 @@ export default function DesignSystem() {
         </div>
       </Section>
 
-      <Section title="Buttons">
+      <Section title="Buttons & Controls">
         <p style={{ fontFamily: 'var(--font-sans)', fontSize: 'var(--text-body)', color: 'var(--color-ink-soft)', margin: '0 0 1.5rem', lineHeight: 1.6 }}>
-          Two CTAs (fill + outline) and two nav pills (SHOP, BAG). Heights and type come from the
+          Two CTAs (fill + outline) and two nav pills (SHOP, BAG) plus multi-currency switching. Heights and type come from the
           CTA tokens in <code>@theme</code>; the nav pills use <code>h-14 md:h-11</code> (56px mobile,
           44px desktop). On mobile the CTAs go full-width and drop to the smaller type.
         </p>
@@ -120,7 +126,7 @@ export default function DesignSystem() {
         </div>
       </Section>
 
-      <Section title="Components">
+      <Section title="Components & Multi-Currency">
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.25rem', alignItems: 'center' }}>
           {/* SHOP pill */}
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', borderRadius: 9999, padding: '0 1.75rem', height: 44, background: 'var(--color-bone)', border: '1px solid var(--color-line)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-nav)', letterSpacing: '0.18em', fontWeight: 500, color: 'var(--color-ink)' }}>SHOP</span>
@@ -128,6 +134,8 @@ export default function DesignSystem() {
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', borderRadius: 9999, border: '1px solid var(--color-line)', padding: '0 1rem', height: 44, fontFamily: 'var(--font-sans)', fontSize: 'var(--text-nav)', letterSpacing: '0.12em', color: 'var(--color-ink)' }}>
             BAG <span style={{ display: 'inline-flex', height: 20, minWidth: 20, alignItems: 'center', justifyContent: 'center', borderRadius: 9999, background: 'rgba(26,23,20,0.08)', fontSize: '0.72rem', color: 'var(--color-ink-soft)' }}>0</span>
           </span>
+          {/* Currency Pill */}
+          <CurrencySelector />
         </div>
         {/* Media card (the atelier field tile) — traced portrait, ~4:5 at 1440 */}
         <div style={{ marginTop: '1.75rem', width: 192, height: 239, borderRadius: 'var(--radius-card)', background: 'var(--color-porcelain-2)', border: '1px solid var(--color-line)', boxShadow: '0 24px 60px -28px rgba(26,23,20,0.45)', display: 'flex', alignItems: 'flex-end', padding: '0.75rem' }}>

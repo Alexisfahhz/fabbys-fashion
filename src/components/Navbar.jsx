@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import BrandLogo from './BrandLogo'
 import ShopMenu from './ShopMenu'
-import { useBag } from '../lib/bag'
+import CurrencySelector from './CurrencySelector'
+import { useBag } from '../lib/bagContext'
 import { BASE } from '../lib/base'
 
 // The aurora lives here: a soft pearlescent band behind the nav row.
@@ -47,11 +48,14 @@ export default function Navbar() {
         </video>
       </div>
 
-      {/* grouped logo + shop + bag, full width with 32px side padding */}
-      <nav className="grid w-full grid-cols-[1fr_auto_1fr] items-center px-8 py-5 md:h-[82px] md:px-10 md:py-0">
+      {/* grouped logo + shop + currency + bag, full width with 32px side padding */}
+      <nav className="grid w-full grid-cols-[1fr_auto_1fr] items-center px-6 py-4 md:h-[82px] md:px-10 md:py-0">
         <div className="justify-self-start flex items-center"><BrandLogo /></div>
         <div className="justify-self-center"><ShopMenu /></div>
-        <div className="justify-self-end flex items-center">
+        <div className="justify-self-end flex items-center gap-2.5 sm:gap-3">
+          <div className="hidden lg:block">
+            <CurrencySelector />
+          </div>
           <button
             type="button"
             onClick={openBag}
@@ -96,11 +100,8 @@ export default function Navbar() {
           background-repeat: no-repeat;
           animation: navAurora 40s ease-in-out infinite alternate;
         }
-        /* the generated slow-loop video sits on top once brand/aurora.mp4 exists */
         .nav-aurora video { opacity: 0.9; }
 
-        /* Bag pill morph, same language as the SHOP pill: transparent shell,
-           icon crossfades into a close X, label swaps to CLOSE. */
         .bag-x {
           position: absolute; inset: 0;
           display: flex; align-items: center; justify-content: center;

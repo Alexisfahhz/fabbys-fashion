@@ -4,16 +4,16 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
   // DESKTOP VIEW (md+): Exact 100% original pristine state (never affected by mobile changes)
   const renderDesktop = (
     <div className={`${isDesktopOnly ? 'block' : 'hidden md:block'} relative z-20 mx-auto max-w-[46rem] px-6 text-center my-auto`}>
-      <p className="rise rise-1 mb-6 font-medium" style={{ fontSize: 'var(--text-eyebrow)', letterSpacing: '0.22em', color: 'var(--color-taupe)' }}>
+      <p className="rise rise-1 mb-6 font-medium" style={{ fontSize: 'var(--text-eyebrow)', letterSpacing: '0.35em', color: 'var(--color-taupe)' }}>
         {heroEyebrow.toUpperCase()}
       </p>
 
-      <h1 className="m-0" style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-h1)', lineHeight: 0.98, fontWeight: 400 }}>
+      <h1 className="m-0 mt-4" style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-h1)', lineHeight: 0.784, fontWeight: 400 }}>
         <span className="rise rise-2 block" style={{ color: 'var(--color-ink)' }}>{heroHeadline.top}</span>
         <span className="rise rise-3 block italic" style={{ color: 'var(--color-taupe)' }}>{heroHeadline.bottom}</span>
       </h1>
 
-      <p className="rise rise-4 mx-auto mt-7 max-w-[30rem]" style={{ fontSize: 'var(--text-body)', lineHeight: 1.7, color: 'var(--color-ink-soft)' }}>
+      <p className="rise rise-4 mx-auto mt-3 max-w-[30rem]" style={{ fontSize: 'var(--text-body)', lineHeight: 1.6, color: 'var(--color-ink-soft)' }}>
         {tagline}
       </p>
 
@@ -38,29 +38,29 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
 
   // MOBILE VIEW (< md): Dual arcs top half, text block in lower half, CTAs at bottom
   const renderMobile = (
-    <div className={`${isMobileOnly ? 'flex' : 'flex md:hidden'} relative z-20 flex-1 flex-col justify-end w-full pb-2`}>
+    <div className={`${isMobileOnly ? 'flex' : 'flex md:hidden'} relative z-20 flex-col w-full pt-[170px] pb-4`}>
 
       {/* Text block — sits directly above the CTAs, in the lower viewport */}
       <div className="w-full text-center px-2 mb-5">
         <p 
-          className="rise rise-1 mb-2 font-medium leading-relaxed" 
+          className="rise rise-1 mb-1 font-medium leading-relaxed" 
           style={{ 
             fontFamily: 'var(--font-sans)',
             fontSize: '0.68rem', 
-            letterSpacing: '0.16em', 
+            letterSpacing: '0.28em', 
             color: 'var(--color-taupe)'
           }}
         >
           {heroEyebrow.toUpperCase()}
         </p>
 
-        <h1 className="m-0 mb-3" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.45rem, 9.5vw, 3rem)', lineHeight: 1.0, fontWeight: 400 }}>
+        <h1 className="m-0 mb-1.5 mt-2" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.45rem, 9.5vw, 3rem)', lineHeight: 0.8, fontWeight: 400 }}>
           <span className="rise rise-2 block" style={{ color: 'var(--color-ink)' }}>{heroHeadline.top}</span>
           <span className="rise rise-3 block italic" style={{ color: 'var(--color-taupe)' }}>{heroHeadline.bottom}</span>
         </h1>
 
         <p 
-          className="rise rise-4 mx-auto max-w-[21rem] m-0" 
+          className="rise rise-4 mx-auto mt-2 max-w-[21rem] m-0" 
           style={{ 
             fontFamily: 'var(--font-sans)',
             fontSize: '0.88rem', 

@@ -1,33 +1,38 @@
-// Editorial copy and navigation content. Kept as data so categories, tagline,
-// and social can change without touching component code (sections 15, 16, 24).
+// Editorial copy, navigation content, FAQs, and atelier coordinates.
 
-// Primary positioning (section 16). Relatable African & Nigerian luxury fashion.
 export const tagline = 'From breathtaking bridal to unforgettable owambe statements. Custom pieces tailored to turn heads.'
 
-// Hero headline, two-tone (ink first line, taupe second). Communicates the
-// custom-craft promise without a fashion cliche.
 export const heroHeadline = { top: 'Made to your', bottom: 'measure.' }
 export const heroEyebrow = 'Bespoke Tailoring · Bridal, Aso-Ebi, English & More'
 
-// SHOP menu categories (section 15). Not final; ordered as a browsing path.
 export const categories = [
-  { label: 'Bridal', href: '#bridal' },
-  { label: 'Occasion Wear', href: '#occasion' },
-  { label: 'Lace & Ankara', href: '#lace-ankara' },
-  { label: 'Ready-to-Wear', href: '#ready' },
-  { label: 'Custom Pieces', href: '#custom' },
-  { label: 'New Arrivals', href: '#new' },
+  { label: 'Bridal & Reception', href: '#bridal' },
+  { label: 'Owambe & Occasion', href: '#occasion' },
+  { label: 'Ready-to-Wear Drops', href: '#ready' },
+  { label: 'Lace & Ankara Luxe', href: '#lace-ankara' },
+  { label: 'Bespoke Custom Atelier', href: '#custom' },
+  { label: 'Fitting Booking', href: '#fitting' },
+  { label: 'Institute / Academy', href: '#apprenticeship' },
+  { label: 'Client Reviews', href: '#reviews' },
+  { label: 'Atelier FAQs', href: '#faq' },
 ]
 
-// The "Book a demo" analog for a fashion house.
 export const bookCta = { label: 'Book a fitting', href: '#fitting' }
 
 export const social = [
-  { label: 'Instagram', href: 'https://www.instagram.com/fabbys_fashion', icon: 'instagram' },
-  { label: 'WhatsApp', href: 'https://wa.me/2348000000000', icon: 'whatsapp' },
+  { label: 'Instagram', href: 'https://www.instagram.com/fabbys_fashion', icon: 'instagram', handle: '@fabbys_fashion' },
+  { label: 'WhatsApp', href: 'https://wa.me/2348000000000', icon: 'whatsapp', handle: '+234 800 000 0000' },
 ]
 
-// 3 Core Pillars for the Hero Footer Dock
+export const atelierDetails = {
+  address: 'No. 53 Randle Avenue, Surulere Lagos.',
+  email: 'concierge@fabbysfashion.com',
+  phone: '+234 (0) 800 000 0000',
+  hours: 'Monday – Saturday: 9:00 AM – 6:00 PM (WAT)',
+  diasporaHours: 'Virtual Diaspora Consultations: Available across GMT / EST / CST / PST timezones',
+}
+
+// 4 Core Pillars for the Hero Footer Dock
 export const heroPillars = [
   {
     number: '01',
@@ -52,5 +57,36 @@ export const heroPillars = [
     description: 'Curated luxury staples, sculpted corsetry, and ready-made occasion pieces made for your next grand entrance.',
     cta: 'Shop Ready-to-Wear',
     href: '#ready',
+  },
+  {
+    number: '04',
+    eyebrow: 'APPRENTICESHIP',
+    title: 'FabbysFashion Institute',
+    description: 'FabbysFashion also is an institute that offers apprenticeship programs for aspiring tailors and designers.',
+    cta: 'Learn More',
+    href: '#apprenticeship',
+  },
+]
+
+export const faqs = [
+  {
+    q: 'How does the bespoke tailoring process work for Diaspora clients outside Nigeria?',
+    a: 'We have perfected virtual bridal and occasion styling for clients in the UK, USA, Canada, and Europe. After booking a virtual consultation, our master stylist guides you step-by-step through our digital measurement protocol via video call. We construct your piece and ship via DHL Express (3-5 business days) with an alteration guarantee.',
+  },
+  {
+    q: 'What are the production lead times for custom bridal and owambe orders?',
+    a: 'For bespoke bridal gowns, we recommend ordering 4 to 8 weeks prior to your wedding date. For occasion wear and aso-ebi statements, production is 10 to 14 business days. Urgent express delivery slots can be arranged on inquiry.',
+  },
+  {
+    q: 'Can I purchase Ready-to-Wear items for immediate dispatch?',
+    a: 'Yes! All items in our Ready-to-Wear and New Drops collection are cut and finished in our atelier. Lagos orders dispatch within 24 hours. International orders dispatch within 48 hours via DHL Express.',
+  },
+  {
+    q: 'How do I apply for the FabbysFashion Institute apprenticeship programs?',
+    a: 'Enrollment takes place quarterly. You can apply directly through the Institute section of this site by selecting your desired course and submitting your details. Our admissions coordinator will contact you with interview and portfolio instructions.',
+  },
+  {
+    q: 'What payment methods and currencies do you accept?',
+    a: 'We accept Nigerian Naira (₦), US Dollars ($), and British Pounds (£) via direct bank transfer, debit/credit cards, Paystack, and PayPal for international transfers.',
   },
 ]
