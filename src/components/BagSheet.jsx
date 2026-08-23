@@ -153,7 +153,7 @@ export default function BagSheet() {
                               style={{ color: 'var(--color-ink-soft)' }}
                             >+</button>
                           </div>
-                          <p className="m-0 text-base font-semibold" style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}>
+                          <p className="m-0 text-base font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}>
                             {formatPrice(item.price * item.qty)}
                           </p>
                         </div>

@@ -114,7 +114,7 @@ export default function ProductQuickView() {
             </h2>
 
             <p
-              className="text-[26px] font-semibold"
+              className="text-[26px] font-bold"
               style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
             >
               {formatPrice(quickViewProduct.price)}

@@ -98,7 +98,7 @@ export default function InstituteSection() {
                   </div>
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-[0.62rem] font-semibold uppercase tracking-wider text-taupe">Tuition</span>
-                    <span className="font-semibold text-base text-ink" style={{ fontFamily: 'var(--font-display)' }}>
+                    <span className="font-bold text-base text-ink" style={{ fontFamily: 'var(--font-display)' }}>
                       {formatPrice(course.tuitionNGN)}
                     </span>
                   </div>
@@ -168,7 +168,7 @@ export default function InstituteSection() {
                 {selectedCourse.title}
               </h3>
               <p className="mt-1 mb-6 text-xs text-taupe">
-                Tuition: <span className="text-sm font-semibold text-ink">{formatPrice(selectedCourse.tuitionNGN)}</span> · {selectedCourse.duration}
+                Tuition: <span className="text-sm font-bold text-ink">{formatPrice(selectedCourse.tuitionNGN)}</span> · {selectedCourse.duration}
               </p>
 
               {appSubmitted ? (
