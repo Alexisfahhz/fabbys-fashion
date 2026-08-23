@@ -263,7 +263,7 @@ export default function CustomCoutureSection() {
 
               <button
                 type="submit"
-                className="flex w-full items-center justify-center gap-2 rounded-full py-4 text-xs font-medium tracking-widest uppercase transition-all duration-300 hover:scale-[1.01] shadow-lg"
+                className="flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 text-xs font-medium tracking-widest uppercase transition-all duration-300 hover:scale-[1.01] shadow-lg"
                 style={{
                   background: 'var(--color-ink)',
                   color: 'var(--color-porcelain)',
