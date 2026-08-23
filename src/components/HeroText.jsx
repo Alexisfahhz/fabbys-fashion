@@ -1,6 +1,38 @@
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { SplitText } from 'gsap/SplitText'
 import { heroEyebrow, heroHeadline, tagline } from '../data/content'
 
+gsap.registerPlugin(SplitText)
+
 export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }) {
+  const wordEls = useRef([])
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+    const splits = []
+    const timelines = []
+    wordEls.current.forEach((el) => {
+      if (!el) return
+      const split = new SplitText(el, { type: 'chars' })
+      splits.push(split)
+      const tl = gsap.timeline({ delay: 1.2, repeat: -1, repeatDelay: 5.5 })
+      tl.fromTo(
+        split.chars,
+        { yPercent: 0, opacity: 1 },
+        { yPercent: -18, opacity: 0.82, duration: 0.55, ease: 'power2.out', stagger: 0.06 }
+      ).to(
+        split.chars,
+        { yPercent: 0, opacity: 1, duration: 1.05, ease: 'power3.inOut', stagger: 0.06 }
+      )
+      timelines.push(tl)
+    })
+    return () => {
+      timelines.forEach((tl) => tl.kill())
+      splits.forEach((split) => split.revert())
+    }
+  }, [])
+
   // DESKTOP VIEW (md+): Exact 100% original pristine state (never affected by mobile changes)
   const renderDesktop = (
     <div className={`${isDesktopOnly ? 'block' : 'hidden md:block'} relative z-20 mx-auto max-w-[46rem] px-6 text-center my-auto`}>
@@ -8,9 +40,9 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
         {heroEyebrow.toUpperCase()}
       </p>
 
-      <h1 className="m-0 mt-4" style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-h1)', lineHeight: 0.784, fontWeight: 400 }}>
+      <h1 className="m-0 mt-4" style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-h1)', lineHeight: 0.784, fontWeight: 500 }}>
         <span className="rise rise-2 block" style={{ color: 'var(--color-ink)' }}>{heroHeadline.top}</span>
-        <span className="rise rise-3 block italic" style={{ color: 'var(--color-taupe)' }}>{heroHeadline.bottom}</span>
+        <span ref={(el) => { wordEls.current[0] = el }} className="rise rise-3 block italic" style={{ color: 'var(--color-taupe)' }}>{heroHeadline.bottom}</span>
       </h1>
 
       <p className="rise rise-4 mx-auto mt-3 max-w-[30rem]" style={{ fontSize: 'var(--text-body)', lineHeight: 1.6, color: 'var(--color-ink-soft)' }}>
@@ -54,9 +86,9 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
           {heroEyebrow.toUpperCase()}
         </p>
 
-        <h1 className="m-0 mb-1.5 mt-2" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.45rem, 9.5vw, 3rem)', lineHeight: 0.8, fontWeight: 400 }}>
+        <h1 className="m-0 mb-1.5 mt-2" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.45rem, 9.5vw, 3rem)', lineHeight: 0.8, fontWeight: 500 }}>
           <span className="rise rise-2 block" style={{ color: 'var(--color-ink)' }}>{heroHeadline.top}</span>
-          <span className="rise rise-3 block italic" style={{ color: 'var(--color-taupe)' }}>{heroHeadline.bottom}</span>
+          <span ref={(el) => { wordEls.current[1] = el }} className="rise rise-3 block italic" style={{ color: 'var(--color-taupe)' }}>{heroHeadline.bottom}</span>
         </h1>
 
         <p 

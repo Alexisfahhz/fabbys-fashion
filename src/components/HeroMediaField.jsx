@@ -55,7 +55,7 @@ export default function HeroMediaField() {
       <style>{`
         .arc-wrap {
           position: absolute;
-          top: 244px;            /* dropped by 80px to ensure total clearance from nav band */
+          top: 236px;            /* raised 8px from 244px baseline; keeps clearance from nav band */
           height: 660px;
           width: 300px;
         }

@@ -48,11 +48,13 @@ export default function Navbar() {
         </video>
       </div>
 
-      {/* grouped logo + shop + currency + bag, full width with 32px side padding */}
-      <nav className="grid w-full grid-cols-[1fr_auto_1fr] items-center px-6 py-4 md:h-[82px] md:px-10 md:py-0">
-        <div className="justify-self-start flex items-center"><BrandLogo /></div>
+      {/* grouped logo + shop + currency + bag, full width with 32px side padding.
+          Mobile: minmax(0,1fr) side columns are always equal, so the SHOP pill
+          stays dead-center of the viewport no matter how wide logo/bag render. */}
+      <nav className="grid w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center px-6 py-4 md:grid-cols-[1fr_auto_1fr] md:h-[82px] md:px-10 md:py-0">
+        <div className="flex w-full items-center justify-start"><BrandLogo /></div>
         <div className="justify-self-center"><ShopMenu /></div>
-        <div className="justify-self-end flex items-center gap-2.5 sm:gap-3">
+        <div className="justify-self-end flex items-center justify-end gap-2.5 sm:gap-3">
           <div className="hidden lg:block">
             <CurrencySelector />
           </div>
@@ -61,7 +63,7 @@ export default function Navbar() {
             onClick={openBag}
             aria-expanded={open}
             aria-controls="bag-sheet"
-            className={`bag-pill inline-flex items-center justify-center gap-2 no-underline rounded-full border px-4 sm:px-5 h-14 md:h-11 transition-colors hover:border-ink ${open ? 'bag-is-open' : ''}`}
+            className={`bag-pill relative inline-flex items-center justify-center gap-2 no-underline rounded-full border px-4 sm:px-5 h-14 md:h-11 transition-colors hover:border-ink ${open ? 'bag-is-open' : ''}`}
             style={{
               fontSize: 'var(--text-nav)',
               letterSpacing: '0.12em',
@@ -84,7 +86,7 @@ export default function Navbar() {
               </span>
             </span>
             <span className="hidden sm:inline font-medium">{open ? 'CLOSE' : 'BAG'}</span>
-            <span className="bag-count inline-flex h-7 min-w-7 items-center justify-center rounded-full px-1.5 text-sm md:h-5 md:min-w-5 md:px-1 md:text-[0.72rem] font-semibold transition-opacity duration-300" style={{ background: 'rgba(26,23,20,0.08)' }}>{count}</span>
+            <span className="bag-count absolute -top-1.5 -right-1.5 z-10 inline-flex h-[25px] min-w-[25px] items-center justify-center rounded-full bg-ink-soft px-[5px] text-[0.8rem] font-semibold text-porcelain shadow-sm md:static md:z-auto md:h-5 md:min-w-5 md:px-1 md:text-[0.72rem] md:bg-[rgba(26,23,20,0.08)] md:text-ink transition-opacity duration-300">{count}</span>
           </button>
         </div>
       </nav>

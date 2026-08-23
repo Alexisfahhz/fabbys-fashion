@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { categories, bookCta, social } from '../data/content'
 
-// The SHOP control and its menu are ONE element: the pill expands in place into
-// the panel (absolute, so it never pushes content). Pure CSS transitions, no
-// animation library. Section 5 of the brief.
+// The SHOP control and its menu are ONE element: the panel blooms out from
+// behind the pill (absolute, so it never pushes content). The reveal animates
+// ONLY opacity + transform — compositor properties that never trigger layout —
+// so it stays frame-smooth even on low-end phones. Pure CSS, no animation lib.
 export default function ShopMenu() {
   const [open, setOpen] = useState(false)
   const panelRef = useRef(null)
@@ -51,15 +52,15 @@ export default function ShopMenu() {
       >
         <div className="px-8 pb-8 pt-[70px] text-center md:px-10">
           <span className="mb-6 block" style={{ fontSize: 'var(--text-eyebrow)', letterSpacing: '0.22em', color: 'var(--color-taupe)' }}>THE COLLECTION</span>
-          <ul className="m-0 list-none p-0">
+          <ul className="m-0 list-none space-y-1 p-0">
             {categories.map((c, i) => (
-              <li key={c.label} className="menu-item" style={{ transitionDelay: `${0.12 + i * 0.05}s` }}>
-                <a href={c.href} onClick={() => setOpen(false)} className="menu-link block no-underline" style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-menu)', fontWeight: 400, lineHeight: 1.14, color: 'var(--color-ink)' }} tabIndex={open ? 0 : -1}>
+              <li key={c.label} className="menu-item" style={{ transitionDelay: `${0.08 + i * 0.04}s` }}>
+                <a href={c.href} onClick={() => setOpen(false)} className="menu-link flex items-center justify-center rounded-full px-4 py-2.5 text-center no-underline" style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', lineHeight: 1.25, color: 'var(--color-ink)' }} tabIndex={open ? 0 : -1}>
                   {c.label}
                 </a>
               </li>
             ))}
-            <li className="menu-item mt-6" style={{ transitionDelay: `${0.12 + categories.length * 0.05}s` }}>
+            <li className="menu-item mt-6" style={{ transitionDelay: `${0.08 + categories.length * 0.04}s` }}>
               <a href={bookCta.href} onClick={() => setOpen(false)} className="inline-flex items-center rounded-full px-6 py-3 no-underline" style={{ background: 'var(--color-ink)', color: 'var(--color-porcelain)', fontSize: 'var(--text-nav)', letterSpacing: '0.1em' }} tabIndex={open ? 0 : -1}>
                 {bookCta.label}
               </a>
@@ -105,7 +106,7 @@ export default function ShopMenu() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={menuId}
-        className="group relative inline-flex items-center justify-center gap-2.5 sm:gap-3 rounded-full px-6 sm:px-7 h-14 md:h-11 md:px-7"
+        className="group relative inline-flex items-center justify-center gap-2.5 sm:gap-3 rounded-full px-6 sm:px-7 h-12 md:h-11 md:px-7"
         style={{ zIndex: 2, background: open ? 'transparent' : 'var(--color-bone)', border: `1px solid ${open ? 'transparent' : 'var(--color-line)'}`, boxShadow: open ? 'none' : '0 10px 30px -18px rgba(26,23,20,0.4)', transition: 'background 0.3s, border-color 0.3s' }}
       >
         <span className={`shop-x relative flex h-6 w-6 md:h-4 md:w-4 items-center justify-center ${open ? 'is-open' : ''}`} aria-hidden>
@@ -120,27 +121,44 @@ export default function ShopMenu() {
       <style>{`
         .shop-panel {
           position: absolute; top: -13px; left: 50%;
-          transform: translateX(-50%) scale(0.96);
+          transform: translateX(-50%) translateY(-12px) scale(0.95);
           transform-origin: top center;
-          width: 150px; max-height: 52px; opacity: 0;
-          overflow: hidden; border-radius: 9999px;
+          width: min(300px, 90vw); border-radius: 26px;
           background: var(--color-bone); border: 1px solid var(--color-line);
           box-shadow: 0 40px 120px -40px rgba(26,23,20,0.4);
-          pointer-events: none;
-          transition: width 0.5s var(--ease-couture), max-height 0.55s var(--ease-couture),
-                      border-radius 0.5s var(--ease-couture), opacity 0.3s ease, transform 0.5s var(--ease-couture);
+          opacity: 0; pointer-events: none;
+          /* Hint the compositor to pre-promote the layer so the first frame
+             never stutters on cheap GPUs. */
+          will-change: transform, opacity;
+          /* Exit: quick, quiet — no wobble on the way out */
+          transition: opacity 0.22s ease, transform 0.28s var(--ease-couture);
         }
         .shop-panel.is-open {
-          /* Hug the content: widest label "Ready-to-Wear" is 281px, plus the 40px
-             padding each side = 361px, so the panel wraps the text with equal
-             padding instead of leaving a wide empty right column. */
-          width: min(364px, 92vw); max-height: 680px; opacity: 1; border-radius: 26px;
-          transform: translateX(-50%) scale(1); pointer-events: auto;
+          opacity: 1;
+          transform: translateX(-50%) translateY(0) scale(1);
+          pointer-events: auto;
+          /* Liquid-glass entry: the bezier's y > 1 makes the scale overshoot
+             ~6% then settle — Apple-style spring, still compositor-only. */
+          transition: opacity 0.24s ease, transform 0.55s cubic-bezier(0.34, 1.42, 0.64, 1);
         }
-        .menu-item { opacity: 0; transform: translateY(16px); transition: opacity 0.5s var(--ease-couture), transform 0.5s var(--ease-couture); }
-        .shop-panel.is-open .menu-item { opacity: 1; transform: translateY(0); }
-        .menu-link { transition: color 0.3s var(--ease-couture), transform 0.4s var(--ease-couture); }
-        .menu-link:hover { color: var(--color-claret); transform: scale(1.04); }
+        .menu-item {
+          opacity: 0; transform: translateY(10px);
+          will-change: transform, opacity;
+          transition: opacity 0.25s ease, transform 0.3s var(--ease-couture);
+        }
+        .shop-panel.is-open .menu-item {
+          opacity: 1; transform: translateY(0);
+          transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.34, 1.32, 0.64, 1);
+        }
+        .menu-link { transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease; }
+        /* Fine-pointer devices (desktop): subtle claret fill on hover */
+        @media (hover: hover) and (pointer: fine) {
+          .menu-link:hover { background: var(--color-claret-soft); color: var(--color-claret); }
+        }
+        /* Touch devices: pressed fill + gentle squeeze doubles as tap feedback */
+        @media (hover: none) {
+          .menu-link:active { background: var(--color-claret-soft); color: var(--color-claret); transform: scale(0.97); }
+        }
         .shop-x-bar { position: absolute; height: 1.5px; width: 16px; background: var(--color-ink); transition: transform 0.35s var(--ease-couture); }
         .shop-x-bar:nth-child(1) { transform: translateY(-3px); }
         .shop-x-bar:nth-child(2) { transform: translateY(3px); }
@@ -153,6 +171,13 @@ export default function ShopMenu() {
           .shop-x-bar { height: 2px; width: 24px; }
           .shop-x-bar:nth-child(1) { transform: translateY(-4px); }
           .shop-x-bar:nth-child(2) { transform: translateY(4px); }
+        }
+        /* Accessibility + low-end courtesy: cut all motion instantly */
+        @media (prefers-reduced-motion: reduce) {
+          .shop-panel, .shop-panel.is-open,
+          .menu-item, .shop-panel.is-open .menu-item {
+            transition-duration: 0.01ms; transition-delay: 0s;
+          }
         }
       `}</style>
     </div>

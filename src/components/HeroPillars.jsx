@@ -2,10 +2,10 @@ import { heroPillars } from '../data/content'
 
 export default function HeroPillars({ isMobileSection = false }) {
   return (
-    <div className={`relative z-20 w-full max-w-[1240px] mx-auto px-5 sm:px-8 ${isMobileSection ? 'pt-4 pb-16 block md:hidden' : 'mt-auto pt-6 hidden md:block'}`}>
+    <div className={`relative z-20 w-full max-w-[1240px] mx-auto px-5 sm:px-8 ${isMobileSection ? 'pt-4 pb-16 block md:hidden' : 'mt-auto pt-6 hidden md:block translate-y-12'}`}>
       {/* Top Hairline Divider */}
       <div 
-        className="mb-6 h-[1px] w-full" 
+        className={`mb-6 h-[1px] w-full ${isMobileSection ? '' : 'translate-y-[28px]'}`} 
         style={{ background: 'linear-gradient(90deg, transparent, var(--color-line) 15%, var(--color-line) 85%, transparent)' }} 
       />
 
@@ -27,12 +27,12 @@ export default function HeroPillars({ isMobileSection = false }) {
       )}
 
       {/* 4 Pillars: Stacked cleanly on mobile section, 4-column grid on desktop */}
-      <div className={`grid gap-3 sm:gap-4 ${isMobileSection ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-4'}`}>
+      <div className={`grid ${isMobileSection ? 'gap-3 sm:gap-4 grid-cols-1' : 'gap-[3.2px] grid-cols-1 md:grid-cols-4'}`}>
         {heroPillars.map((pillar, idx) => (
           <a
             key={pillar.number}
             href={pillar.href}
-            className={`pillar-card pillar-card-${idx + 1} group relative block overflow-hidden rounded-xl p-4 sm:p-5 text-left no-underline transition-all duration-300`}
+            className={`pillar-card pillar-card-${idx + 1} group relative block overflow-hidden rounded-xl p-4 sm:p-5 text-left no-underline transition-all duration-300 ${isMobileSection ? '' : '-mx-[9px] origin-bottom scale-90'}`}
             style={{
               background: 'rgba(255, 255, 255, 0.85)',
               backdropFilter: 'blur(12px)',

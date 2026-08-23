@@ -144,10 +144,10 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Side-by-side: Collections opposite Experiences */}
-          <div className="grid grid-cols-2 gap-6 sm:gap-10 text-left pt-2">
+          {/* Side-by-side: Collections opposite Experiences — Auto spacing pushes them to opposite edges */}
+          <div className="flex items-start justify-between gap-6 sm:gap-10 pt-2">
             {/* Collections */}
-            <div>
+            <div className="text-left">
               <h4 className="text-[0.7rem] font-semibold tracking-widest uppercase text-taupe mb-3.5">
                 COLLECTIONS
               </h4>
@@ -161,7 +161,7 @@ export default function Footer() {
             </div>
 
             {/* Experiences */}
-            <div>
+            <div className="text-right">
               <h4 className="text-[0.7rem] font-semibold tracking-widest uppercase text-taupe mb-3.5">
                 EXPERIENCES
               </h4>

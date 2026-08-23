@@ -56,7 +56,7 @@ export default function FittingBookingSection() {
                 : 'text-ink-soft hover:text-ink'
             }`}
           >
-            In-Person Atelier (Lagos)
+            In-Person Atelier<br className="md:hidden" /> (Lagos)
           </button>
           <button
             type="button"
@@ -67,7 +67,7 @@ export default function FittingBookingSection() {
                 : 'text-ink-soft hover:text-ink'
             }`}
           >
-            Virtual Diaspora (Global)
+            Virtual Diaspora<br className="md:hidden" /> (Global)
           </button>
         </div>
 
