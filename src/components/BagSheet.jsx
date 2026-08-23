@@ -153,7 +153,7 @@ export default function BagSheet() {
                               style={{ color: 'var(--color-ink-soft)' }}
                             >+</button>
                           </div>
-                          <p className="m-0 text-base font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}>
+                          <p className="m-0 text-lg sm:text-xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}>
                             {formatPrice(item.price * item.qty)}
                           </p>
                         </div>
@@ -172,7 +172,7 @@ export default function BagSheet() {
                 <span className="text-xs font-medium" style={{ letterSpacing: '0.18em', color: 'var(--color-taupe)' }}>
                   SUBTOTAL ({currency})
                 </span>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: 'calc(1.45rem + 2px)', fontWeight: 600, color: 'var(--color-ink)' }}>
+                <span className="price-subtotal" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--color-ink)' }}>
                   {formatPrice(subtotal)}
                 </span>
               </div>
@@ -222,6 +222,12 @@ export default function BagSheet() {
       </div>
 
       <style>{`
+        .price-subtotal {
+          font-size: calc(1.45rem + 4px);
+        }
+        @media (min-width: 640px) {
+          .price-subtotal { font-size: calc(1.45rem + 6px); }
+        }
         .bag-sheet {
           position: fixed;
           top: 0; right: 0; bottom: 0;

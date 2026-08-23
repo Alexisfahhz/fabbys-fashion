@@ -33,7 +33,7 @@ export default function ReadyToWearSection() {
         </div>
 
         {/* Filter Pills (Horizontally scrollable on mobile) */}
-        <div className="no-scrollbar flex items-center gap-2 overflow-x-auto pb-4 mb-10">
+        <div className="no-scrollbar -mx-6 px-6 flex items-center gap-2 overflow-x-auto pb-4 mb-10 md:-mx-12 md:px-12">
           {PRODUCT_CATEGORIES.map((cat) => {
             const isActive = selectedCategory === cat.id
             return (
