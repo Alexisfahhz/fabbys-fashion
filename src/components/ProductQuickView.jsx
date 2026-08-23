@@ -31,7 +31,7 @@ export default function ProductQuickView() {
 
   const images = quickViewProduct.gallery?.length ? quickViewProduct.gallery : [quickViewProduct.image]
 
-  const whatsappDirectUrl = `https://wa.me/2348000000000?text=${encodeURIComponent(
+  const whatsappDirectUrl = `https://wa.me/2347011934913?text=${encodeURIComponent(
     `Hello Fabbys Fashion! I'm interested in ordering the *${quickViewProduct.title}* in size *${selectedSize}* (${formatPrice(quickViewProduct.price)}). Can you confirm availability and lead time?`
   )}`
 

@@ -90,7 +90,7 @@ export default function ReadyToWearSection() {
 
             <div className="flex flex-col sm:flex-row lg:flex-col items-center gap-3 shrink-0 w-full sm:w-auto">
               <a
-                href="https://wa.me/2348000000000?text=Hello%20Fabbys%20Fashion%2C%20I%20have%20an%20urgent%20event%20deadline%20%2F%20group%20order%20inquiry."
+                href="https://wa.me/2347011934913?text=Hello%20Fabbys%20Fashion%2C%20I%20have%20an%20urgent%20event%20deadline%20%2F%20group%20order%20inquiry."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full px-8 py-4 text-xs font-medium tracking-widest uppercase transition-all duration-300 hover:scale-105 shadow-md no-underline text-center"

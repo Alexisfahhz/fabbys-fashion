@@ -20,7 +20,7 @@ export default function InstituteSection() {
     const text = `*New FabbysFashion Institute Application*\n\n*Course:* ${selectedCourse?.title}\n*Applicant Name:* ${appForm.name}\n*WhatsApp/Phone:* ${appForm.phone}\n*Email:* ${appForm.email}\n*Experience Level:* ${appForm.experienceLevel}\n*Motivation:* ${appForm.motivation || 'None'}`
     
     setTimeout(() => {
-      window.open(`https://wa.me/2348000000000?text=${encodeURIComponent(text)}`, '_blank')
+      window.open(`https://wa.me/2347011934913?text=${encodeURIComponent(text)}`, '_blank')
     }, 800)
   }
 

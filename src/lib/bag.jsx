@@ -56,7 +56,7 @@ export function BagProvider({ children }) {
 
   // Generates prefilled WhatsApp link for direct ordering
   const getWhatsAppOrderUrl = useCallback(() => {
-    const phone = '2348000000000'
+    const phone = '2347011934913'
     if (items.length === 0) {
       return `https://wa.me/${phone}?text=${encodeURIComponent('Hello Fabbys Fashion, I would like to inquire about placing a custom order.')}`
     }

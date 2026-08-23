@@ -44,7 +44,7 @@ export default function CustomCoutureSection() {
     
     // Auto-open WhatsApp after 1 second
     setTimeout(() => {
-      window.open(`https://wa.me/2348000000000?text=${encodeURIComponent(text)}`, '_blank')
+      window.open(`https://wa.me/2347011934913?text=${encodeURIComponent(text)}`, '_blank')
     }, 800)
   }
 

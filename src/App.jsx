@@ -30,7 +30,7 @@ function FloatingMobileBar() {
       }}
     >
       <a
-        href="https://wa.me/2348000000000?text=Hello%20Fabbys%20Fashion%2C%20I%20would%20like%20to%20inquire%20about%20a%20custom%20piece."
+        href="https://wa.me/2347011934913?text=Hello%20Fabbys%20Fashion%2C%20I%20would%20like%20to%20inquire%20about%20a%20custom%20piece."
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center gap-1.5 rounded-full bg-porcelain/15 px-3.5 py-2.5 text-[0.72rem] font-medium text-porcelain no-underline active:scale-95"

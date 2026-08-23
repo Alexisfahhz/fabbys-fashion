@@ -22,7 +22,7 @@ export default function FittingBookingSection() {
     const text = `*New Fitting Appointment Booking*\n\n*Type:* ${typeLabel}\n*Name:* ${formData.name}\n*Phone/WhatsApp:* ${formData.phone}\n*Email:* ${formData.email}\n*Preferred Date:* ${formData.preferredDate}\n*Time Slot:* ${formData.timeSlot}\n*Location/Timezone:* ${formData.clientLocation} (${formData.timezone})\n*Notes:* ${formData.notes || 'None'}`
     
     setTimeout(() => {
-      window.open(`https://wa.me/2348000000000?text=${encodeURIComponent(text)}`, '_blank')
+      window.open(`https://wa.me/2347011934913?text=${encodeURIComponent(text)}`, '_blank')
     }, 800)
   }
 

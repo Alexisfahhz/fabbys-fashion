@@ -21,7 +21,7 @@ export const bookCta = { label: 'Book a fitting', href: '#fitting' }
 
 export const social = [
   { label: 'Instagram', href: 'https://www.instagram.com/fabbys_fashion', icon: 'instagram', handle: '@fabbys_fashion' },
-  { label: 'WhatsApp', href: 'https://wa.me/2348000000000', icon: 'whatsapp', handle: '+234 800 000 0000' },
+  { label: 'WhatsApp', href: 'https://wa.me/2347011934913', icon: 'whatsapp', handle: '+234 701 193 4913' },
 ]
 
 export const atelierDetails = {
