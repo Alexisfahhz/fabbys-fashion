@@ -78,7 +78,7 @@ export default function ProductCard({ product }) {
 
         <div className="mt-4 flex items-center justify-between border-t pt-3.5" style={{ borderColor: 'var(--color-line)' }}>
           <span
-            className="text-base sm:text-lg font-medium"
+            className="text-lg sm:text-[20px] font-semibold"
             style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
           >
             {formatPrice(product.price)}

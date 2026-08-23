@@ -87,18 +87,18 @@ export default function InstituteSection() {
                   {course.description}
                 </p>
 
-                <div className="space-y-2.5 border-t border-b py-4 mb-6" style={{ borderColor: 'var(--color-line)' }}>
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-taupe">Duration:</span>
-                    <span className="font-medium text-ink">{course.duration}</span>
+                <div className="space-y-3 border-t border-b py-4 mb-6" style={{ borderColor: 'var(--color-line)' }}>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-[0.62rem] font-semibold uppercase tracking-wider text-taupe">Duration</span>
+                    <span className="text-xs font-medium text-ink">{course.duration}</span>
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-[0.62rem] font-semibold uppercase tracking-wider text-taupe">Schedule</span>
+                    <span className="text-xs font-medium leading-relaxed text-ink">{course.schedule}</span>
                   </div>
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-taupe">Schedule:</span>
-                    <span className="font-medium text-ink">{course.schedule}</span>
-                  </div>
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-taupe">Tuition:</span>
-                    <span className="font-semibold text-ink text-sm" style={{ fontFamily: 'var(--font-display)' }}>
+                    <span className="text-[0.62rem] font-semibold uppercase tracking-wider text-taupe">Tuition</span>
+                    <span className="font-semibold text-base text-ink" style={{ fontFamily: 'var(--font-display)' }}>
                       {formatPrice(course.tuitionNGN)}
                     </span>
                   </div>
@@ -168,7 +168,7 @@ export default function InstituteSection() {
                 {selectedCourse.title}
               </h3>
               <p className="mt-1 mb-6 text-xs text-taupe">
-                Tuition: {formatPrice(selectedCourse.tuitionNGN)} · {selectedCourse.duration}
+                Tuition: <span className="text-sm font-semibold text-ink">{formatPrice(selectedCourse.tuitionNGN)}</span> · {selectedCourse.duration}
               </p>
 
               {appSubmitted ? (

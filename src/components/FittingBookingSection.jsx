@@ -1,8 +1,31 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import DatePicker from './DatePicker'
 
 export default function FittingBookingSection() {
   const [fittingType, setFittingType] = useState('in-person') // 'in-person' | 'virtual'
+  const switchRef = useRef(null)
+  const [thumb, setThumb] = useState(null)
+
+  useEffect(() => {
+    const track = switchRef.current
+    if (!track) return undefined
+    const measure = () => {
+      const active = track.querySelector(`[data-mode="${fittingType}"]`)
+      if (!active) return
+      setThumb({ x: active.offsetLeft, w: active.offsetWidth })
+    }
+    measure()
+    let ro
+    if (typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(measure)
+      ro.observe(track)
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure)
+    return () => {
+      if (ro) ro.disconnect()
+    }
+  }, [fittingType])
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -46,13 +69,28 @@ export default function FittingBookingSection() {
         </div>
 
         {/* Dual Mode Switcher */}
-        <div className="mx-auto mb-12 flex max-w-md justify-center rounded-full bg-bone p-1.5 border border-line shadow-sm">
+        <div ref={switchRef} className="mx-auto mb-12 relative flex max-w-md justify-center rounded-full bg-bone p-1.5 border border-line shadow-sm">
+          <span
+            aria-hidden
+            className="toggle-thumb absolute rounded-full"
+            style={{
+              top: 6,
+              bottom: 6,
+              left: 0,
+              width: thumb ? thumb.w : 0,
+              transform: `translateX(${thumb ? thumb.x : 0}px)`,
+              background: 'var(--color-ink)',
+              boxShadow: '0 4px 14px -4px rgba(26, 23, 20, 0.4)',
+              transition: thumb ? 'transform 0.5s var(--ease-couture), width 0.5s var(--ease-couture)' : 'none',
+            }}
+          />
           <button
             type="button"
+            data-mode="in-person"
             onClick={() => setFittingType('in-person')}
-            className={`flex-1 rounded-full py-3 text-xs font-medium tracking-wider uppercase transition-all duration-300 ${
+            className={`relative z-10 flex-1 rounded-full py-3 text-xs font-medium tracking-wider uppercase transition-colors duration-300 ${
               fittingType === 'in-person'
-                ? 'bg-ink text-porcelain shadow-md'
+                ? 'text-porcelain'
                 : 'text-ink-soft hover:text-ink'
             }`}
           >
@@ -60,10 +98,11 @@ export default function FittingBookingSection() {
           </button>
           <button
             type="button"
+            data-mode="virtual"
             onClick={() => setFittingType('virtual')}
-            className={`flex-1 rounded-full py-3 text-xs font-medium tracking-wider uppercase transition-all duration-300 ${
+            className={`relative z-10 flex-1 rounded-full py-3 text-xs font-medium tracking-wider uppercase transition-colors duration-300 ${
               fittingType === 'virtual'
-                ? 'bg-ink text-porcelain shadow-md'
+                ? 'text-porcelain'
                 : 'text-ink-soft hover:text-ink'
             }`}
           >
