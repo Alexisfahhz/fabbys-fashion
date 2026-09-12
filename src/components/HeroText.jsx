@@ -51,7 +51,7 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
 
       <div className="rise rise-5 mt-9 flex flex-wrap items-center justify-center gap-4">
         <a 
-          href="#shop" 
+          href="#ready" 
           className="cta-fill inline-flex items-center rounded-full px-[36px] no-underline" 
           style={{ background: 'var(--color-ink)', color: 'var(--color-porcelain)', fontSize: 'var(--text-cta)', letterSpacing: '0.1em', height: 'var(--height-cta)' }}
         >
@@ -107,7 +107,7 @@ export default function HeroText({ isDesktopOnly = false, isMobileOnly = false }
       {/* Full-Width CTAs — tight gap below text, drops both together to bottom of viewport */}
       <div className="rise rise-5 flex flex-col items-stretch gap-4 w-full">
         <a 
-          href="#shop" 
+          href="#ready" 
           className="cta-fill w-full inline-flex items-center justify-center rounded-full px-6 font-medium no-underline text-center" 
           style={{ 
             background: 'var(--color-ink)', 

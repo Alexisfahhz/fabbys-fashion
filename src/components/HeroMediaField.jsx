@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import MediaContainer from './MediaContainer'
 import { leftField, rightField } from '../data/media'
 
@@ -7,49 +8,48 @@ import { leftField, rightField } from '../data/media'
 // couture name reveals on each card on hover. Desktop only.
 const DURATION = 34
 
-// Local path coords in a 300 x 660 box that starts below the nav band. Traced
-// from KingFizzy's own drawn guide (2026-08-14): the left arc enters near the
-// top-left edge, swells to a full belly toward the centre in the upper-middle,
-// then sweeps back down to the lower-left. The right arc is its exact mirror
-// across the box (x' = 300 - x), so it bulges toward the centre from the right.
-// offset-anchor centres each card on the path; the top opacity ramp keeps cards
-// from appearing behind the nav.
 const LEFT_PATH = 'M 30 20 C 265 60, 348 200, 320 305 C 288 405, 165 525, 40 645'
 const RIGHT_PATH = 'M 270 20 C 35 60, -48 200, -20 305 C 12 405, 135 525, 260 645'
 
-export default function HeroMediaField() {
-  // Six per arc (not the full eight) so the cards sit spaced along the curve
-  // rather than clumped.
-  const right = rightField.slice(0, 6)
-  const left = leftField.slice(0, 6)
+export default function HeroMediaField({ isMobile = false }) {
+  const containerRef = useRef(null)
+  const [inView, setInView] = useState(true)
+
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return undefined
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setInView(entry.isIntersecting)
+      },
+      { threshold: 0.05 }
+    )
+    if (containerRef.current) {
+      observer.observe(containerRef.current)
+    }
+    return () => observer.disconnect()
+  }, [])
+
+  // Prune mobile cards to 3 per arc to prevent GPU memory pressure on low-spec devices
+  const right = isMobile ? rightField.slice(0, 3) : rightField.slice(0, 6)
+  const left = isMobile ? leftField.slice(0, 3) : leftField.slice(0, 6)
 
   return (
-    <>
-      {/* Desktop: overflow-hidden to keep cards in bounds; Mobile: no clip so card edges don't get cut */}
-      <div className="pointer-events-none absolute inset-0 z-10 hidden md:block overflow-hidden" aria-hidden>
-        <div className="arc-wrap arc-wrap--left">
-          {left.map((item, i) => (
-            <MediaContainer key={item.id} item={item} path={LEFT_PATH} index={i} count={left.length} duration={DURATION} />
-          ))}
-        </div>
-        <div className="arc-wrap arc-wrap--right">
-          {right.map((item, i) => (
-            <MediaContainer key={item.id} item={item} path={RIGHT_PATH} index={i} count={right.length} duration={DURATION} />
-          ))}
-        </div>
+    <div 
+      ref={containerRef}
+      className={`pointer-events-none absolute inset-0 z-10 transition-opacity duration-300 ${inView ? 'opacity-100' : 'opacity-0'} ${
+        isMobile ? 'block md:hidden' : 'hidden md:block overflow-hidden'
+      }`} 
+      aria-hidden
+    >
+      <div className="arc-wrap arc-wrap--left">
+        {left.map((item, i) => (
+          <MediaContainer key={item.id} item={item} path={LEFT_PATH} index={i} count={left.length} duration={DURATION} />
+        ))}
       </div>
-      {/* Mobile: no overflow-hidden so card edges render fully without clipping */}
-      <div className="pointer-events-none absolute inset-0 z-10 block md:hidden" aria-hidden>
-        <div className="arc-wrap arc-wrap--left">
-          {left.map((item, i) => (
-            <MediaContainer key={item.id} item={item} path={LEFT_PATH} index={i} count={left.length} duration={DURATION} />
-          ))}
-        </div>
-        <div className="arc-wrap arc-wrap--right">
-          {right.map((item, i) => (
-            <MediaContainer key={item.id} item={item} path={RIGHT_PATH} index={i} count={right.length} duration={DURATION} />
-          ))}
-        </div>
+      <div className="arc-wrap arc-wrap--right">
+        {right.map((item, i) => (
+          <MediaContainer key={item.id} item={item} path={RIGHT_PATH} index={i} count={right.length} duration={DURATION} />
+        ))}
       </div>
 
       <style>{`
@@ -123,6 +123,6 @@ export default function HeroMediaField() {
         }
         .arc-card:hover .arc-card-caption { opacity: 1; transform: translateY(0); }
       `}</style>
-    </>
+    </div>
   )
 }

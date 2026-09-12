@@ -5,6 +5,7 @@ export default function ProductQuickView() {
   const { quickViewProduct, setQuickViewProduct, addItem, formatPrice } = useBag()
   const [selectedSize, setSelectedSize] = useState('UK 10')
   const [activeImageIdx, setActiveImageIdx] = useState(0)
+  const [showSizeGuide, setShowSizeGuide] = useState(false)
 
   useEffect(() => {
     if (quickViewProduct?.sizes?.length) {
@@ -141,9 +142,19 @@ export default function ProductQuickView() {
             <div className="mt-6">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-medium tracking-wider uppercase text-taupe">Select Size</span>
-                <a href="#fitting" onClick={() => setQuickViewProduct(null)} className="text-claret underline">
-                  Need custom measurements?
-                </a>
+                <div className="flex items-center gap-3">
+                  <button 
+                    type="button" 
+                    onClick={() => setShowSizeGuide(true)} 
+                    className="text-[0.72rem] font-medium text-claret hover:underline flex items-center gap-1"
+                  >
+                    <span>📐</span>
+                    <span>Size Guide</span>
+                  </button>
+                  <a href="#fitting" onClick={() => setQuickViewProduct(null)} className="text-[0.72rem] text-taupe hover:text-ink underline">
+                    Custom fit?
+                  </a>
+                </div>
               </div>
 
               <div className="mt-2.5 flex flex-wrap gap-2">
@@ -207,6 +218,87 @@ export default function ProductQuickView() {
           </div>
         </div>
       </div>
+
+      {/* Sizing Chart Modal */}
+      {showSizeGuide && (
+        <div className="fixed inset-0 z-90 flex items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true">
+          <button
+            type="button"
+            aria-label="Close size guide backdrop"
+            onClick={() => setShowSizeGuide(false)}
+            className="fixed inset-0 bg-ink/70 backdrop-blur-sm"
+          />
+
+          <div className="relative z-10 w-full max-w-lg rounded-3xl bg-bone p-6 sm:p-8 border border-line shadow-2xl animate-in zoom-in-95 duration-200 text-left">
+            <div className="flex items-start justify-between pb-3 border-b border-line">
+              <div>
+                <span className="text-[0.68rem] font-semibold tracking-widest uppercase text-taupe block">
+                  ATELIER PROPORTIONS
+                </span>
+                <h3 className="m-0 mt-0.5 text-2xl font-normal text-ink" style={{ fontFamily: 'var(--font-display)' }}>
+                  Size & Fit Guide
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowSizeGuide(false)}
+                aria-label="Close size guide"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-porcelain-2 text-ink hover:rotate-90 transition-transform"
+              >
+                ✕
+              </button>
+            </div>
+
+            <p className="mt-3 mb-5 text-xs leading-relaxed text-ink-soft">
+              All garments are precision-cut in our Lagos atelier. If you fall between sizes or require bespoke corsetry boning, select <strong>Custom Measure</strong> during checkout.
+            </p>
+
+            <div className="overflow-x-auto rounded-2xl border border-line bg-porcelain">
+              <table className="w-full text-xs text-left">
+                <thead className="bg-porcelain-2 text-taupe uppercase text-[0.65rem] font-semibold border-b border-line">
+                  <tr>
+                    <th className="px-3.5 py-2.5">UK</th>
+                    <th className="px-3.5 py-2.5">US</th>
+                    <th className="px-3.5 py-2.5">EU</th>
+                    <th className="px-3.5 py-2.5">Bust</th>
+                    <th className="px-3.5 py-2.5">Waist</th>
+                    <th className="px-3.5 py-2.5">Hips</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-line/60 text-ink">
+                  <tr><td className="px-3.5 py-2 font-medium">UK 6</td><td className="px-3.5 py-2 text-taupe">US 2</td><td className="px-3.5 py-2 text-taupe">EU 34</td><td className="px-3.5 py-2">32"</td><td className="px-3.5 py-2">24"</td><td className="px-3.5 py-2">34"</td></tr>
+                  <tr><td className="px-3.5 py-2 font-medium">UK 8</td><td className="px-3.5 py-2 text-taupe">US 4</td><td className="px-3.5 py-2 text-taupe">EU 36</td><td className="px-3.5 py-2">34"</td><td className="px-3.5 py-2">26"</td><td className="px-3.5 py-2">36"</td></tr>
+                  <tr><td className="px-3.5 py-2 font-medium">UK 10</td><td className="px-3.5 py-2 text-taupe">US 6</td><td className="px-3.5 py-2 text-taupe">EU 38</td><td className="px-3.5 py-2">36"</td><td className="px-3.5 py-2">28"</td><td className="px-3.5 py-2">38"</td></tr>
+                  <tr><td className="px-3.5 py-2 font-medium">UK 12</td><td className="px-3.5 py-2 text-taupe">US 8</td><td className="px-3.5 py-2 text-taupe">EU 40</td><td className="px-3.5 py-2">38"</td><td className="px-3.5 py-2">30"</td><td className="px-3.5 py-2">40"</td></tr>
+                  <tr><td className="px-3.5 py-2 font-medium">UK 14</td><td className="px-3.5 py-2 text-taupe">US 10</td><td className="px-3.5 py-2 text-taupe">EU 42</td><td className="px-3.5 py-2">40"</td><td className="px-3.5 py-2">32"</td><td className="px-3.5 py-2">43"</td></tr>
+                  <tr><td className="px-3.5 py-2 font-medium">UK 16</td><td className="px-3.5 py-2 text-taupe">US 12</td><td className="px-3.5 py-2 text-taupe">EU 44</td><td className="px-3.5 py-2">43"</td><td className="px-3.5 py-2">35"</td><td className="px-3.5 py-2">46"</td></tr>
+                  <tr><td className="px-3.5 py-2 font-medium">UK 18</td><td className="px-3.5 py-2 text-taupe">US 14</td><td className="px-3.5 py-2 text-taupe">EU 46</td><td className="px-3.5 py-2">46"</td><td className="px-3.5 py-2">38"</td><td className="px-3.5 py-2">49"</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="mt-5 flex items-center justify-between">
+              <a 
+                href="#fitting" 
+                onClick={() => {
+                  setShowSizeGuide(false)
+                  setQuickViewProduct(null)
+                }}
+                className="text-xs text-claret font-medium underline"
+              >
+                Book a Precision Video Measurement Session →
+              </a>
+              <button
+                type="button"
+                onClick={() => setShowSizeGuide(false)}
+                className="rounded-full bg-ink px-4 py-2 text-xs text-porcelain"
+              >
+                Done
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -27,7 +27,7 @@ export const social = [
 export const atelierDetails = {
   address: 'No. 53 Randle Avenue, Surulere Lagos.',
   email: 'concierge@fabbysfashion.com',
-  phone: '+234 (0) 800 000 0000',
+  phone: '+234 701 193 4913',
   hours: 'Monday – Saturday: 9:00 AM – 6:00 PM (WAT)',
   diasporaHours: 'Virtual Diaspora Consultations: Available across GMT / EST / CST / PST timezones',
 }

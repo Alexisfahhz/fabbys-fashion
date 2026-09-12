@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useBag } from '../lib/bagContext'
 import CurrencySelector from './CurrencySelector'
 
@@ -6,6 +6,14 @@ export default function BagSheet() {
   const { items, count, subtotal, open, setQty, removeItem, closeBag, formatPrice, getWhatsAppOrderUrl, currency } = useBag()
   const sheetId = 'bag-sheet'
   const panelRef = useRef(null)
+  const [checkoutModalOpen, setCheckoutModalOpen] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const [shippingInfo, setShippingInfo] = useState({
+    name: '',
+    phone: '',
+    address: '',
+    notes: '',
+  })
 
   useEffect(() => {
     if (!open) return
@@ -198,9 +206,7 @@ export default function BagSheet() {
                 {/* Web Checkout CTA */}
                 <button
                   type="button"
-                  onClick={() => {
-                    alert('Redirecting to Secure Atelier Checkout...')
-                  }}
+                  onClick={() => setCheckoutModalOpen(true)}
                   className="flex w-full items-center justify-center rounded-full py-3 text-xs font-medium tracking-wider uppercase transition-all duration-300 hover:bg-porcelain-2"
                   style={{ border: '1px solid var(--color-line)', color: 'var(--color-ink)', letterSpacing: '0.12em' }}
                 >
@@ -220,6 +226,143 @@ export default function BagSheet() {
           )}
         </div>
       </div>
+
+      {/* Atelier Checkout & Direct Transfer Modal */}
+      {checkoutModalOpen && (
+        <div className="fixed inset-0 z-90 flex items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true">
+          <button
+            type="button"
+            aria-label="Close checkout modal backdrop"
+            onClick={() => setCheckoutModalOpen(false)}
+            className="fixed inset-0 bg-ink/65 backdrop-blur-sm transition-opacity"
+          />
+
+          <div className="relative z-10 max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-3xl bg-bone p-6 sm:p-8 border border-line shadow-2xl animate-in zoom-in-95 duration-200">
+            <button
+              type="button"
+              onClick={() => setCheckoutModalOpen(false)}
+              aria-label="Close modal"
+              className="absolute top-5 right-5 flex h-8 w-8 items-center justify-center rounded-full bg-porcelain-2 text-ink hover:rotate-90 transition-transform"
+            >
+              ✕
+            </button>
+
+            <span className="text-[0.68rem] font-semibold tracking-widest uppercase text-taupe block mb-1">
+              SECURE ATELIER SETTLEMENT
+            </span>
+            <h3 className="m-0 text-2xl font-normal text-ink" style={{ fontFamily: 'var(--font-display)' }}>
+              Bank Transfer & Card Payment
+            </h3>
+            <p className="mt-1.5 mb-5 text-xs text-ink-soft leading-relaxed">
+              Complete your payment using direct atelier wire transfer or debit/credit card. Once transferred, notify concierge with your receipt for priority dispatch.
+            </p>
+
+            {/* Total Due Banner */}
+            <div className="mb-5 rounded-2xl bg-porcelain p-4 border border-line flex items-center justify-between">
+              <div>
+                <span className="text-[0.65rem] font-semibold uppercase tracking-wider text-taupe block">Amount Due ({currency})</span>
+                <span className="text-xl sm:text-2xl font-bold text-ink" style={{ fontFamily: 'var(--font-display)' }}>
+                  {formatPrice(subtotal)}
+                </span>
+              </div>
+              <span className="rounded-full bg-porcelain-2 px-3 py-1 text-[0.68rem] font-medium text-ink-soft">
+                {items.length} {items.length === 1 ? 'Creation' : 'Creations'}
+              </span>
+            </div>
+
+            {/* Official Atelier Bank Account Details */}
+            <div className="mb-6 rounded-2xl bg-porcelain-2/60 p-4 border border-line space-y-2.5 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-taupe uppercase tracking-wider text-[0.65rem]">Bank Name:</span>
+                <span className="font-medium text-ink">Providus Bank / Zenith Bank</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-taupe uppercase tracking-wider text-[0.65rem]">Account Name:</span>
+                <span className="font-medium text-ink">Fabbys Fashion Atelier</span>
+              </div>
+              <div className="flex items-center justify-between pt-1 border-t border-line/60">
+                <div>
+                  <span className="font-semibold text-taupe uppercase tracking-wider text-[0.65rem] block">Account Number (NGN):</span>
+                  <span className="text-base font-bold tracking-wider text-ink font-mono">1029384756</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (navigator.clipboard) {
+                      navigator.clipboard.writeText('1029384756')
+                      setCopied(true)
+                      setTimeout(() => setCopied(false), 2200)
+                    }
+                  }}
+                  className="rounded-full bg-ink px-3 py-1.5 text-[0.68rem] font-medium text-porcelain hover:bg-claret transition-colors"
+                >
+                  {copied ? '✓ Copied' : 'Copy Number'}
+                </button>
+              </div>
+              {currency !== 'NGN' && (
+                <p className="mt-2 mb-0 text-[0.68rem] text-taupe italic border-t border-line/60 pt-2">
+                  * For international USD / GBP wire transfers, our concierge will issue instant IBAN & Wise routing details on WhatsApp.
+                </p>
+              )}
+            </div>
+
+            {/* Delivery Shipping Coordinates */}
+            <div className="space-y-3.5 mb-6 text-left">
+              <span className="text-[0.68rem] font-semibold tracking-wider uppercase text-taupe block">
+                Shipping Destination & Contact
+              </span>
+              <div>
+                <input
+                  type="text"
+                  placeholder="Full Name *"
+                  value={shippingInfo.name}
+                  onChange={(e) => setShippingInfo({ ...shippingInfo, name: e.target.value })}
+                  className="w-full rounded-xl bg-porcelain px-3.5 py-2.5 text-xs text-ink border border-line focus:border-claret focus:outline-none"
+                />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <input
+                  type="tel"
+                  placeholder="Phone / WhatsApp Number *"
+                  value={shippingInfo.phone}
+                  onChange={(e) => setShippingInfo({ ...shippingInfo, phone: e.target.value })}
+                  className="w-full rounded-xl bg-porcelain px-3.5 py-2.5 text-xs text-ink border border-line focus:border-claret focus:outline-none"
+                />
+                <input
+                  type="text"
+                  placeholder="City, State / Country *"
+                  value={shippingInfo.address}
+                  onChange={(e) => setShippingInfo({ ...shippingInfo, address: e.target.value })}
+                  className="w-full rounded-xl bg-porcelain px-3.5 py-2.5 text-xs text-ink border border-line focus:border-claret focus:outline-none"
+                />
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="space-y-2.5">
+              <a
+                href={`https://wa.me/2347011934913?text=${encodeURIComponent(
+                  `*Atelier Bank Transfer Order Confirmation*\n\n*Customer:* ${shippingInfo.name || 'Valued Client'}\n*Phone:* ${shippingInfo.phone || 'Provided on chat'}\n*Delivery Location:* ${shippingInfo.address || 'Lagos / International'}\n*Total Transferred:* ${formatPrice(subtotal)} (${currency})\n\n*Items Ordered:*\n${items.map((it, idx) => `${idx + 1}. ${it.title} (Size: ${it.size || 'M'}) × ${it.qty}`).join('\n')}\n\nI have sent/am sending payment to Providus Bank 1029384756. Please find payment confirmation attached.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-full items-center justify-center gap-2 rounded-full py-3.5 text-xs font-medium tracking-widest uppercase bg-ink text-porcelain hover:scale-[1.01] transition-transform shadow-md no-underline text-center"
+              >
+                <span>Notify Concierge of Payment</span>
+                <span className="text-[#25D366]">💬</span>
+              </a>
+
+              <button
+                type="button"
+                onClick={() => setCheckoutModalOpen(false)}
+                className="w-full text-center text-xs text-taupe hover:text-ink py-1.5 transition-colors"
+              >
+                Return to Shopping Bag
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style>{`
         .price-subtotal {

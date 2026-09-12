@@ -81,7 +81,7 @@ function MainSite() {
 
         {/* MOBILE HERO VIEWPORT (< md): no clipping — cards render freely, flush to edge */}
         <section className="flex md:hidden relative flex-col pt-16 pb-4 px-5">
-          <HeroMediaField />
+          <HeroMediaField isMobile={true} />
           <HeroText isMobileOnly={true} />
         </section>
 

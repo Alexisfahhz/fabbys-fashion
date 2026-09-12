@@ -3,7 +3,6 @@ import BrandLogo from './BrandLogo'
 import ShopMenu from './ShopMenu'
 import CurrencySelector from './CurrencySelector'
 import { useBag } from '../lib/bagContext'
-import { BASE } from '../lib/base'
 
 // The aurora lives here: a soft pearlescent band behind the nav row.
 // When scrolled, a frosted glass backdrop smoothly engages so content glides underneath cleanly.
@@ -12,8 +11,15 @@ export default function Navbar() {
   const { count, open, openBag } = useBag()
 
   useEffect(() => {
+    let ticking = false
     const handleScroll = () => {
-      setScrolled(window.scrollY > 15)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 15)
+          ticking = false
+        })
+        ticking = true
+      }
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
@@ -22,31 +28,19 @@ export default function Navbar() {
 
   return (
     <header 
-      className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-40 transition-colors duration-300 ${
         scrolled 
-          ? 'bg-[#f6f3ef]/90 backdrop-blur-md border-b border-[#e3ddd4]/70 shadow-xs' 
+          ? 'bg-[#f6f3ef]/95 backdrop-blur-md border-b border-[#e3ddd4]/70 shadow-xs' 
           : 'bg-transparent'
       }`}
     >
-      {/* aurora: fills the nav only (no bleed below) */}
+      {/* Aurora: Hardware-composited ambient illumination (zero video decoding overhead) */}
       <div 
-        className={`nav-aurora pointer-events-none absolute inset-0 -z-10 transition-opacity duration-300 ${
-          scrolled ? 'opacity-50' : 'opacity-100'
+        className={`nav-aurora pointer-events-none absolute inset-0 -z-10 transition-opacity duration-500 ${
+          scrolled ? 'opacity-30' : 'opacity-75'
         }`} 
         aria-hidden
-      >
-        <video
-          className="h-full w-full object-cover"
-          poster={`${BASE}brand/aurora.png`}
-          muted
-          loop
-          autoPlay
-          playsInline
-          preload="auto"
-        >
-          <source src={`${BASE}brand/aurora.mp4`} type="video/mp4" />
-        </video>
-      </div>
+      />
 
       {/* grouped logo + shop + currency + bag, full width with 32px side padding.
           Mobile: minmax(0,1fr) side columns are always equal, so the SHOP pill
@@ -55,6 +49,15 @@ export default function Navbar() {
         <div className="flex w-full items-center justify-start"><BrandLogo /></div>
         <div className="justify-self-center"><ShopMenu /></div>
         <div className="justify-self-end flex items-center justify-end gap-2.5 sm:gap-3">
+          <a
+            href="https://wa.me/2347011934913?text=Hello%20Fabbys%20Fashion%20Concierge%2C%20I%20would%20like%20to%20make%20an%20inquiry."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden xl:inline-flex items-center gap-1.5 rounded-full border border-line px-3.5 h-11 text-[0.74rem] font-medium text-ink-soft bg-bone/80 backdrop-blur-md transition-colors hover:border-ink hover:text-ink no-underline tracking-wider uppercase"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-[#25D366]" />
+            <span>Concierge</span>
+          </a>
           <div className="hidden lg:block">
             <CurrencySelector />
           </div>
@@ -93,16 +96,9 @@ export default function Navbar() {
 
       <style>{`
         .nav-aurora {
-          -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent);
-          mask-image: linear-gradient(to bottom, #000 40%, transparent);
-          background-color: var(--color-porcelain);
-          background-image: url(${BASE}brand/aurora.png);
-          background-size: 130% auto;
-          background-position: center 30%;
-          background-repeat: no-repeat;
-          animation: navAurora 40s ease-in-out infinite alternate;
+          background: radial-gradient(ellipse 70% 80% at 50% -20%, rgba(107, 58, 63, 0.14), transparent 75%);
+          pointer-events: none;
         }
-        .nav-aurora video { opacity: 0.9; }
 
         .bag-x {
           position: absolute; inset: 0;

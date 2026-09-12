@@ -1,13 +1,49 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { CURRENCIES, formatPrice as formatCurrencyPrice } from './currency'
 import { BagContext } from './bagContext'
 
+const STORAGE_KEY_ITEMS = 'fabbys_bag_items'
+const STORAGE_KEY_CURRENCY = 'fabbys_bag_currency'
+
 export function BagProvider({ children }) {
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState(() => {
+    if (typeof window === 'undefined') return []
+    try {
+      const saved = window.localStorage.getItem(STORAGE_KEY_ITEMS)
+      return saved ? JSON.parse(saved) : []
+    } catch {
+      return []
+    }
+  })
   const [open, setOpen] = useState(false)
-  const [currency, setCurrency] = useState('NGN')
+  const [currency, setCurrency] = useState(() => {
+    if (typeof window === 'undefined') return 'NGN'
+    try {
+      return window.localStorage.getItem(STORAGE_KEY_CURRENCY) || 'NGN'
+    } catch {
+      return 'NGN'
+    }
+  })
   const [quickViewProduct, setQuickViewProduct] = useState(null)
   const [toastMessage, setToastMessage] = useState(null)
+
+  // Persist items to localStorage
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(STORAGE_KEY_ITEMS, JSON.stringify(items))
+    } catch {
+      // ignore
+    }
+  }, [items])
+
+  // Persist currency to localStorage
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(STORAGE_KEY_CURRENCY, currency)
+    } catch {
+      // ignore
+    }
+  }, [currency])
 
   const showToast = useCallback((msg) => {
     setToastMessage(msg)

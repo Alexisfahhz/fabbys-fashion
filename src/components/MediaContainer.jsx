@@ -36,16 +36,31 @@ export default function MediaContainer({ item, path, index, count, duration }) {
           <div
             className="arc-card-frame overflow-hidden bg-porcelain-2"
             style={{
-            width: 'clamp(192.4px, calc(67.6px + 8.6667vw), 234px)',
-            height: 'clamp(239.2px, calc(20.8px + 15.1667vw), 312px)',
-            borderRadius: 'var(--radius-card)',
+              width: 'clamp(192.4px, calc(67.6px + 8.6667vw), 234px)',
+              height: 'clamp(239.2px, calc(20.8px + 15.1667vw), 312px)',
+              borderRadius: 'var(--radius-card)',
               boxShadow: '0 24px 60px -28px rgba(26,23,20,0.45), 0 2px 10px -4px rgba(26,23,20,0.2)',
             }}
           >
             {item.type === 'video' ? (
-              <video className="h-full w-full object-cover" src={item.src} poster={item.poster} muted loop autoPlay playsInline preload="auto" />
+              <video 
+                className="h-full w-full object-cover" 
+                src={item.src} 
+                poster={item.poster} 
+                muted 
+                loop 
+                autoPlay 
+                playsInline 
+                preload="none" 
+              />
             ) : (
-              <img className="h-full w-full object-cover" src={item.src} alt={item.title} loading="eager" decoding="async" />
+              <img 
+                className="h-full w-full object-cover" 
+                src={item.src} 
+                alt={item.title} 
+                loading={index < 3 ? 'eager' : 'lazy'} 
+                decoding="async" 
+              />
             )}
           <div className="arc-card-caption" aria-hidden>
             <span style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--color-porcelain)', lineHeight: 1.25 }}>
