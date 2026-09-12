@@ -29,9 +29,9 @@ export default function HeroMediaField({ isMobile = false }) {
     return () => observer.disconnect()
   }, [])
 
-  // Prune mobile cards to 3 per arc to prevent GPU memory pressure on low-spec devices
-  const right = isMobile ? rightField.slice(0, 3) : rightField.slice(0, 6)
-  const left = isMobile ? leftField.slice(0, 3) : leftField.slice(0, 6)
+  // Full 6 cards per arc ensures a continuous, rich cascade without sparse gaps
+  const right = rightField.slice(0, 6)
+  const left = leftField.slice(0, 6)
 
   return (
     <div 
